@@ -7,7 +7,7 @@
 #include <sstream>
 #include <chrono>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 static constexpr std::size_t ChannelCount = 2;

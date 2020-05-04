@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <limits>
 
-namespace adaptone
+namespace introlab
 {
     class PcmToArrayConverter
     {

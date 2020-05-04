@@ -4,9 +4,9 @@
 #include <Utils/Exception/LoggedException.h>
 
 #define THROW_PROPERTY_NOT_FOUND_EXCEPTION(key) \
-    throw adaptone::PropertyNotFoundException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key))
+    throw introlab::PropertyNotFoundException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key))
 
-namespace adaptone
+namespace introlab
 {
     class PropertyNotFoundException : public LoggedException
     {

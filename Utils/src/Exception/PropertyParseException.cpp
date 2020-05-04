@@ -1,6 +1,6 @@
 #include <Utils/Exception/PropertyParseException.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 PropertyParseException::PropertyParseException(const string& filename,

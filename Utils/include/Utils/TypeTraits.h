@@ -3,7 +3,7 @@
 
 #include <type_traits>
 
-namespace adaptone
+namespace introlab
 {
     template<class T>
     struct AlwaysFalse : std::false_type

@@ -4,10 +4,10 @@
 
 #include <unordered_map>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
-PcmAudioFrameFormat adaptone::parseFormat(const string& format)
+PcmAudioFrameFormat introlab::parseFormat(const string& format)
 {
     static const unordered_map<string, PcmAudioFrameFormat> Mapping(
         {

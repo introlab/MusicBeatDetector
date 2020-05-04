@@ -12,7 +12,7 @@
 #include <string>
 #include <istream>
 
-namespace adaptone
+namespace introlab
 {
     /*
      * A PCM audio frame (Little endian)
@@ -96,7 +96,7 @@ namespace adaptone
 
     inline std::size_t PcmAudioFrame::size() const
     {
-        return adaptone::size(m_format, m_channelCount, m_sampleCount);
+        return introlab::size(m_format, m_channelCount, m_sampleCount);
     }
 
     inline bool PcmAudioFrame::hasOwnership() const

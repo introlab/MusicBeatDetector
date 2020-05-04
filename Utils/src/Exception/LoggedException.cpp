@@ -1,6 +1,6 @@
 #include <Utils/Exception/LoggedException.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 LoggedException::LoggedException(const string& filename,

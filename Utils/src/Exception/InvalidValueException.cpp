@@ -1,6 +1,6 @@
 #include <Utils/Exception/InvalidValueException.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 InvalidValueException::InvalidValueException(const string& filename,

@@ -1,6 +1,6 @@
 #include <Utils/Exception/NotSupportedException.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 NotSupportedException::NotSupportedException(const string& filename,

@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <cstring>
 
-namespace adaptone
+namespace introlab
 {
     /*
      * A templated audio frame. The channel samples are consecutive.

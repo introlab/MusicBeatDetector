@@ -7,7 +7,7 @@
 #include <sstream>
 #include <chrono>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 TEST(PcmAudioFrameFormatTests, parseFormat_shouldReturnTheRightFormat)

@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 TEST(ArrayToPcmConverterTests, convertSigned8_shouldConvertTheDataFromFloatingPointArray)

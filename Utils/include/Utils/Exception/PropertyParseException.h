@@ -4,9 +4,9 @@
 #include <Utils/Exception/LoggedException.h>
 
 #define THROW_PROPERTY_PARSE_EXCEPTION(key, value) \
-    throw adaptone::PropertyParseException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key), (value))
+    throw introlab::PropertyParseException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key), (value))
 
-namespace adaptone
+namespace introlab
 {
     class PropertyParseException : public LoggedException
     {

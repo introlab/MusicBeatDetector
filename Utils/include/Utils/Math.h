@@ -6,7 +6,7 @@
 
 #include <cstddef>
 
-namespace adaptone
+namespace introlab
 {
     template<class T>
     inline T hamming(std::size_t length)

@@ -1,6 +1,6 @@
 #include <Utils/Exception/PropertyNotFoundException.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 PropertyNotFoundException::PropertyNotFoundException(const string& filename,

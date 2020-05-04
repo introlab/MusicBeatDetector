@@ -2,7 +2,7 @@
 
 #include <Utils/Exception/InvalidValueException.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 PcmAudioFrame::PcmAudioFrame(PcmAudioFrameFormat format, size_t channelCount, size_t sampleCount) :

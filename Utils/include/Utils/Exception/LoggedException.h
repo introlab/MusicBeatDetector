@@ -17,9 +17,9 @@
 #define __FILENAME__ (std::strrchr(__FILE__, '/') ? std::strrchr(__FILE__, '/') + 1 : __FILE__)
 
 #define THROW_LOGGED_EXCEPTION(message) \
-    throw adaptone::LoggedException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (message))
+    throw introlab::LoggedException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (message))
 
-namespace adaptone
+namespace introlab
 {
     class LoggedException : public std::runtime_error
     {

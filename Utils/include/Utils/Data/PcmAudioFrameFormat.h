@@ -4,7 +4,7 @@
 #include <string>
 #include <cstddef>
 
-namespace adaptone
+namespace introlab
 {
     enum class PcmAudioFrameFormat : std::size_t
     {

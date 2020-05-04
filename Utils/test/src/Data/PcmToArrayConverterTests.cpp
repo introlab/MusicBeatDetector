@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 static constexpr double MaxAbsError = 0.01;

@@ -4,9 +4,9 @@
 #include <Utils/Exception/LoggedException.h>
 
 #define THROW_NOT_SUPPORTED_EXCEPTION(message) \
-    throw adaptone::NotSupportedException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (message))
+    throw introlab::NotSupportedException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (message))
 
-namespace adaptone
+namespace introlab
 {
     class NotSupportedException : public LoggedException
     {

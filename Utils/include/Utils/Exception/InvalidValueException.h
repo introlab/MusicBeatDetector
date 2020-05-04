@@ -4,9 +4,9 @@
 #include <Utils/Exception/LoggedException.h>
 
 #define THROW_INVALID_VALUE_EXCEPTION(key, value) \
-    throw adaptone::InvalidValueException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key), (value))
+    throw introlab::InvalidValueException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key), (value))
 
-namespace adaptone
+namespace introlab
 {
     class InvalidValueException : public LoggedException
     {

@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace adaptone;
+using namespace introlab;
 using namespace std;
 
 TEST(NotSupportedExceptionTests, constructor_shouldSetTheRightMessage)
