@@ -56,7 +56,7 @@ namespace introlab
         void writeChannel(std::size_t thisChannelIndex, const PcmAudioFrame& other, std::size_t otherChannelIndex);
 
         template<class T>
-        operator AudioFrame<T>();
+        operator AudioFrame<T>() const;
 
         friend std::istream& operator>>(std::istream& stream, PcmAudioFrame& frame);
         friend std::ostream& operator<<(std::ostream& stream, const PcmAudioFrame& frame);
@@ -120,7 +120,7 @@ namespace introlab
     }
 
     template<class T>
-    inline PcmAudioFrame::operator AudioFrame<T>()
+    inline PcmAudioFrame::operator AudioFrame<T>() const
     {
         AudioFrame<T> convertedFrame(m_channelCount, m_sampleCount);
         PcmToArrayConverter::convertPcmToArray(m_data, convertedFrame.data(), m_sampleCount, m_channelCount, m_format);

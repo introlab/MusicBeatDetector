@@ -154,7 +154,7 @@ TEST(AudioFrameTests, assignationOperator_shouldCopy)
     }
 }
 
-TEST(AudioFrameTests, moveAssignationOperator_shouldCopy)
+TEST(AudioFrameTests, moveAssignationOperator_shouldMove)
 {
     AudioFrame<int> frame(ChannelCount, SampleCount);
     for (size_t i = 0; i < FrameSize; i++)
