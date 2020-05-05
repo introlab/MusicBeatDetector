@@ -1,5 +1,5 @@
 #include <MusicBeatDetector/Obtain/OssCalculator.h>
-#include <MusicBeatDetector/Obtain/TempoEstimator.h>
+#include <MusicBeatDetector/Obtain/BpmEstimator.h>
 
 #include <Utils/Exception/NotSupportedException.h>
 
@@ -8,47 +8,47 @@
 using namespace introlab;
 using namespace std;
 
-TEST(TempoEstimatorTests, constructor_negativeMinBpm_range)
+TEST(BpmEstimatorTests, constructor_negativeMinBpm_range)
 {
     constexpr float OssSamplingFrequency = 344.5;
     constexpr size_t OssWindowSize = 1024;
     constexpr float MinBpm = -49.93;
     constexpr float MaxBpm = 210.94;
 
-    EXPECT_THROW(TempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
 }
 
-TEST(TempoEstimatorTests, constructor_negativeMaxBpm_range)
+TEST(BpmEstimatorTests, constructor_negativeMaxBpm_range)
 {
     constexpr float OssSamplingFrequency = 344.5;
     constexpr size_t OssWindowSize = 1024;
     constexpr float MinBpm = 49.93;
     constexpr float MaxBpm = -210.94;
 
-    EXPECT_THROW(TempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
 }
 
-TEST(TempoEstimatorTests, constructor_invalidLagRange_range)
+TEST(BpmEstimatorTests, constructor_invalidLagRange_range)
 {
     constexpr float OssSamplingFrequency = 344.5;
     constexpr size_t OssWindowSize = 256;
     constexpr float MinBpm = 10;
     constexpr float MaxBpm = 9;
 
-    EXPECT_THROW(TempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
 }
 
-TEST(TempoEstimatorTests, constructor_invalidOssWindowSize_range)
+TEST(BpmEstimatorTests, constructor_invalidOssWindowSize_range)
 {
     constexpr float OssSamplingFrequency = 344.5;
     constexpr size_t OssWindowSize = 10;
     constexpr float MinBpm = 10;
     constexpr float MaxBpm = 9;
 
-    EXPECT_THROW(TempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
 }
 
-TEST(TempoEstimatorTests, estimateTempo_shouldReturnTempo)
+TEST(BpmEstimatorTests, estimateBpm_shouldReturnBpm)
 {
     constexpr float OssSamplingFrequency = 344.5;
     constexpr size_t OssWindowSize = 4;
@@ -63,13 +63,13 @@ TEST(TempoEstimatorTests, estimateTempo_shouldReturnTempo)
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
     OssCalculator ossCalculator(FrameSampleCount);
-    TempoEstimator tempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm);
+    BpmEstimator bpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm);
 
     float oss1 = ossCalculator.calculate(frame1);
     float oss2 = ossCalculator.calculate(frame2);
 
-    EXPECT_EQ(tempoEstimator.estimateTempo(oss1), 20670);
-    EXPECT_EQ(tempoEstimator.estimateTempo(oss2), 20670);
-    EXPECT_EQ(tempoEstimator.estimateTempo(oss1), 20670);
-    EXPECT_EQ(tempoEstimator.estimateTempo(oss2), 20670);
+    EXPECT_EQ(bpmEstimator.estimateBpm(oss1), 20670);
+    EXPECT_EQ(bpmEstimator.estimateBpm(oss2), 20670);
+    EXPECT_EQ(bpmEstimator.estimateBpm(oss1), 20670);
+    EXPECT_EQ(bpmEstimator.estimateBpm(oss2), 20670);
 }

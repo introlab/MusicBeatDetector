@@ -1,4 +1,4 @@
-#include <MusicBeatDetector/Obtain/TempoEstimator.h>
+#include <MusicBeatDetector/Obtain/BpmEstimator.h>
 
 #include <Utils/Exception/NotSupportedException.h>
 
@@ -10,10 +10,10 @@
 using namespace introlab;
 using namespace std;
 
-TempoEstimator::TempoEstimator(float ossSamplingFrequency,
-    std::size_t ossWindowSize,
-    float minBpm,
-    float maxBpm) :
+BpmEstimator::BpmEstimator(float ossSamplingFrequency,
+                           std::size_t ossWindowSize,
+                           float minBpm,
+                           float maxBpm) :
     m_ossSamplingFrequency(ossSamplingFrequency),
     m_crossCorrelationCalculator(ossWindowSize)
 {
@@ -36,11 +36,11 @@ TempoEstimator::TempoEstimator(float ossSamplingFrequency,
     m_oss = arma::zeros<arma::fvec>(ossWindowSize);
 }
 
-TempoEstimator::~TempoEstimator()
+BpmEstimator::~BpmEstimator()
 {
 }
 
-float TempoEstimator::estimateTempo(float oss)
+float BpmEstimator::estimateBpm(float oss)
 {
     m_oss = arma::join_cols(m_oss(arma::span(1, m_oss.n_elem - 1)), arma::fvec({oss}));
     arma::fvec enhancedAutoCorrelation = calculateEnhancedAutoCorrelation();
@@ -51,7 +51,7 @@ float TempoEstimator::estimateTempo(float oss)
     return 60 * m_ossSamplingFrequency / bestLag;
 }
 
-arma::fvec TempoEstimator::calculateEnhancedAutoCorrelation()
+arma::fvec BpmEstimator::calculateEnhancedAutoCorrelation()
 {
     arma::fvec meanSubtractedOss = m_oss - arma::mean(m_oss);
     arma::fvec a = m_crossCorrelationCalculator.calculate(meanSubtractedOss, meanSubtractedOss);
@@ -67,7 +67,7 @@ arma::fvec TempoEstimator::calculateEnhancedAutoCorrelation()
     return a + stretched2xA + stretched4xA;
 }
 
-vector<size_t> TempoEstimator::calculateCandidateLags(const arma::fvec& enhancedAutoCorrelation)
+vector<size_t> BpmEstimator::calculateCandidateLags(const arma::fvec& enhancedAutoCorrelation)
 {
     constexpr size_t CandidateCount = 10;
     vector<size_t> candidateLags;
@@ -85,7 +85,7 @@ vector<size_t> TempoEstimator::calculateCandidateLags(const arma::fvec& enhanced
     return candidateLags;
 }
 
-size_t TempoEstimator::getBestLag(const vector<size_t>& candidateLags)
+size_t BpmEstimator::getBestLag(const vector<size_t>& candidateLags)
 {
     arma::fvec maxScores = arma::zeros<arma::fvec>(candidateLags.size());
     arma::fvec varScores = arma::zeros<arma::fvec>(candidateLags.size());
@@ -101,7 +101,7 @@ size_t TempoEstimator::getBestLag(const vector<size_t>& candidateLags)
     return candidateLags[scores.index_max()];
 }
 
-TempoEstimator::CandidateScore TempoEstimator::calcultateCandidateLagScore(size_t lag)
+BpmEstimator::CandidateScore BpmEstimator::calcultateCandidateLagScore(size_t lag)
 {
     constexpr size_t PulseCount = 4;
     constexpr size_t PulseSequenceCount = 3;

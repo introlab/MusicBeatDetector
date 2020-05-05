@@ -10,7 +10,7 @@
 
 namespace introlab
 {
-    class TempoEstimator
+    class BpmEstimator
     {
         struct CandidateScore
         {
@@ -27,13 +27,13 @@ namespace introlab
         CrossCorrelationCalculator m_crossCorrelationCalculator;
 
     public:
-        TempoEstimator(float ossSamplingFrequency = 44100.0 / 128,
-            std::size_t ossWindowSize = 1024,
-            float minBpm = 50,
-            float maxBpm = 180);
-        virtual ~TempoEstimator();
+        BpmEstimator(float ossSamplingFrequency = 44100.0 / 128,
+                     std::size_t ossWindowSize = 1024,
+                     float minBpm = 50,
+                     float maxBpm = 180);
+        virtual ~BpmEstimator();
 
-        float estimateTempo(float oss);
+        float estimateBpm(float oss);
 
     private:
         arma::fvec calculateEnhancedAutoCorrelation();

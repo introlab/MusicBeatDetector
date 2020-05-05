@@ -1,5 +1,5 @@
 #include <MusicBeatDetector/Obtain/OssCalculator.h>
-#include <MusicBeatDetector/Obtain/TempoEstimator.h>
+#include <MusicBeatDetector/Obtain/BpmEstimator.h>
 #include <MusicBeatDetector/Obtain/CbssCalculator.h>
 
 #include <Utils/Exception/NotSupportedException.h>
@@ -31,16 +31,16 @@ TEST(CbssGeneratorTests, calculate_shouldReturneTheNextCbssValue)
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
     OssCalculator ossCalculator(FrameSampleCount);
-    TempoEstimator tempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm);
+    BpmEstimator bpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm);
     CbssCalculator cbssCalculator(OssSamplingFrequency, MinBpm);
 
     float oss1 = ossCalculator.calculate(frame1);
     float oss2 = ossCalculator.calculate(frame2);
 
-    float bpm1 = tempoEstimator.estimateTempo(oss1);
-    float bpm2 = tempoEstimator.estimateTempo(oss2);
-    float bpm3 = tempoEstimator.estimateTempo(oss1);
-    float bpm4 = tempoEstimator.estimateTempo(oss2);
+    float bpm1 = bpmEstimator.estimateBpm(oss1);
+    float bpm2 = bpmEstimator.estimateBpm(oss2);
+    float bpm3 = bpmEstimator.estimateBpm(oss1);
+    float bpm4 = bpmEstimator.estimateBpm(oss2);
 
     EXPECT_EQ(cbssCalculator.calculate(bpm1, oss1), 0);
     EXPECT_EQ(cbssCalculator.calculate(bpm2, oss2), 0);
