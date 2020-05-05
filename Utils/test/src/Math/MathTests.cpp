@@ -94,3 +94,17 @@ TEST(MathTests, fftShift_odd_shouldReturnFttShift)
     EXPECT_FLOAT_EQ(b(5), 3);
     EXPECT_FLOAT_EQ(b(6), 4);
 }
+
+TEST(MathTests, crossCorrelation_shouldReturnTheCrossCorrelation)
+{
+    arma::fvec a({1, 2, 3});
+    arma::fvec b({1, -1, 1});
+
+    arma::fvec c = crossCorrelation(a, b);
+
+    EXPECT_FLOAT_EQ(c(0), 1);
+    EXPECT_FLOAT_EQ(c(1), 1);
+    EXPECT_FLOAT_EQ(c(2), 2);
+    EXPECT_FLOAT_EQ(c(3), -1);
+    EXPECT_FLOAT_EQ(c(4), 3);
+}

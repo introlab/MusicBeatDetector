@@ -54,6 +54,11 @@ namespace introlab
     {
         return arma::shift(a, a.n_elem / 2);
     }
+
+    inline arma::fvec crossCorrelation(const arma::fvec& a, const arma::fvec& b)
+    {
+        return arma::conv(a, arma::reverse(b));
+    }
 }
 
 #endif

@@ -48,7 +48,7 @@ TEST(BpmEstimatorTests, constructor_invalidOssWindowSize_range)
     EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
 }
 
-TEST(BpmEstimatorTests, estimateBpm_shouldReturnBpm)
+TEST(BpmEstimatorTests, estimate_shouldReturnBpm)
 {
     constexpr float OssSamplingFrequency = 344.5;
     constexpr size_t OssWindowSize = 4;
@@ -68,8 +68,8 @@ TEST(BpmEstimatorTests, estimateBpm_shouldReturnBpm)
     float oss1 = ossCalculator.calculate(frame1);
     float oss2 = ossCalculator.calculate(frame2);
 
-    EXPECT_EQ(bpmEstimator.estimateBpm(oss1), 20670);
-    EXPECT_EQ(bpmEstimator.estimateBpm(oss2), 20670);
-    EXPECT_EQ(bpmEstimator.estimateBpm(oss1), 20670);
-    EXPECT_EQ(bpmEstimator.estimateBpm(oss2), 20670);
+    EXPECT_EQ(bpmEstimator.estimate(oss1), 20670);
+    EXPECT_EQ(bpmEstimator.estimate(oss2), 20670);
+    EXPECT_EQ(bpmEstimator.estimate(oss1), 20670);
+    EXPECT_EQ(bpmEstimator.estimate(oss2), 20670);
 }

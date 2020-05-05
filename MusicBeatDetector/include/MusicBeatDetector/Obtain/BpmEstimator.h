@@ -33,7 +33,7 @@ namespace introlab
                      float maxBpm = 180);
         virtual ~BpmEstimator();
 
-        float estimateBpm(float oss);
+        float estimate(float oss);
 
     private:
         arma::fvec calculateEnhancedAutoCorrelation();

@@ -4,7 +4,9 @@
 
 using namespace introlab;
 
-TEST(MusicBeatDetectorTests, constructor)
+TEST(MusicBeatDetectorTests, detect_shouldReturnTheBpmAndTheBeatClass)
 {
-    MusicBeatDetector testee;
+    constexpr float SamplingFrequency = 44100;
+    constexpr size_t FrameSampleCount = 128;
+    MusicBeatDetector musicBeatDetector(SamplingFrequency, FrameSampleCount);
 }

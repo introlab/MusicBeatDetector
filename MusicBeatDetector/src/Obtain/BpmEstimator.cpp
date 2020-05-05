@@ -40,7 +40,7 @@ BpmEstimator::~BpmEstimator()
 {
 }
 
-float BpmEstimator::estimateBpm(float oss)
+float BpmEstimator::estimate(float oss)
 {
     m_oss = arma::join_cols(m_oss(arma::span(1, m_oss.n_elem - 1)), arma::fvec({oss}));
     arma::fvec enhancedAutoCorrelation = calculateEnhancedAutoCorrelation();
