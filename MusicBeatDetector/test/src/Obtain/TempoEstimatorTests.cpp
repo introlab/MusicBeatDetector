@@ -1,4 +1,4 @@
-#include <MusicBeatDetector/Obtain/OssGenerator.h>
+#include <MusicBeatDetector/Obtain/OssCalculator.h>
 #include <MusicBeatDetector/Obtain/TempoEstimator.h>
 
 #include <Utils/Exception/NotSupportedException.h>
@@ -42,7 +42,7 @@ TEST(TempoEstimatorTests, estimateTempo_shouldReturnTempo)
     PcmAudioFrame frame1(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData1));
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
-    OssGenerator ossGenerator(FrameSampleCount);
+    OssCalculator ossGenerator(FrameSampleCount);
     TempoEstimator tempoEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm);
 
     float oss1 = ossGenerator.generate(frame1);

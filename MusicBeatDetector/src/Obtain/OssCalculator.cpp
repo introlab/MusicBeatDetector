@@ -1,4 +1,4 @@
-#include <MusicBeatDetector/Obtain/OssGenerator.h>
+#include <MusicBeatDetector/Obtain/OssCalculator.h>
 
 #include <Utils/Exception/NotSupportedException.h>
 #include <Utils/Math/Math.h>
@@ -8,7 +8,7 @@
 using namespace introlab;
 using namespace std;
 
-OssGenerator::OssGenerator(size_t frameSampleCount, size_t ossWindowSize, size_t fluxHammingSize) :
+OssCalculator::OssCalculator(size_t frameSampleCount, size_t ossWindowSize, size_t fluxHammingSize) :
     m_frameSampleCount(frameSampleCount),
     m_fluxShiftRegister(fluxHammingSize),
     m_frame(1, frameSampleCount)
@@ -29,11 +29,11 @@ OssGenerator::OssGenerator(size_t frameSampleCount, size_t ossWindowSize, size_t
     m_windowedSignal = arma::zeros<arma::fvec>(ossWindowSize);
 }
 
-OssGenerator::~OssGenerator()
+OssCalculator::~OssCalculator()
 {
 }
 
-float OssGenerator::generate(const PcmAudioFrame& frame)
+float OssCalculator::generate(const PcmAudioFrame& frame)
 {
     if (frame.channelCount() != 1 || frame.sampleCount() != m_frameSampleCount)
     {
@@ -51,7 +51,7 @@ float OssGenerator::generate(const PcmAudioFrame& frame)
     return calculateOss();
 }
 
-float OssGenerator::calculateFlux()
+float OssCalculator::calculateFlux()
 {
     const float Gamma = 1;
     const float Threshold = 3.7;
@@ -72,7 +72,7 @@ float OssGenerator::calculateFlux()
     return std::isfinite(flux) ? flux : 0;
 }
 
-float OssGenerator::calculateOss()
+float OssCalculator::calculateOss()
 {
     float oss = 0;
     for (int64_t i = 0; i < m_fluxShiftRegister.size(); i++)

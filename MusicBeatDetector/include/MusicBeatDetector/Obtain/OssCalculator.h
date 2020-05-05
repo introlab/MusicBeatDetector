@@ -11,7 +11,7 @@
 
 namespace introlab
 {
-    class OssGenerator
+    class OssCalculator
     {
         std::size_t m_frameSampleCount;
         arma::fvec m_signalHamming;
@@ -24,10 +24,10 @@ namespace introlab
         AudioFrame<float> m_frame;
 
     public:
-        OssGenerator(std::size_t frameSampleCount = 128,
-            std::size_t ossWindowSize = 1024,
-            std::size_t fluxHammingSize = 15);
-        virtual ~OssGenerator();
+        OssCalculator(std::size_t frameSampleCount = 128,
+                      std::size_t ossWindowSize = 1024,
+                      std::size_t fluxHammingSize = 15);
+        virtual ~OssCalculator();
 
         float generate(const PcmAudioFrame& frame);
 
