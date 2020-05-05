@@ -1,5 +1,5 @@
-#ifndef UTILS_MATH_H
-#define UTILS_MATH_H
+#ifndef UTILS_MATH_MATH_H
+#define UTILS_MATH_MATH_H
 
 #include <armadillo>
 #include <fftw3.h>
@@ -48,6 +48,11 @@ namespace introlab
         fftwf_destroy_plan(plan);
 
         y /= y.n_elem;
+    }
+
+    inline arma::fvec fftShift(const arma::fvec& a)
+    {
+        return arma::shift(a, a.n_elem / 2);
     }
 }
 

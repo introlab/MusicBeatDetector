@@ -1,4 +1,4 @@
-#include <Utils/Math.h>
+#include <Utils/Math/Math.h>
 
 #include <gtest/gtest.h>
 
@@ -66,4 +66,31 @@ TEST(MathTests, ifft_shouldReturnTheIfft)
     EXPECT_EQ(y(0), complex<float>(1, 0));
     EXPECT_EQ(y(1), complex<float>(1, 0));
     EXPECT_EQ(y(2), complex<float>(1, 0));
+}
+
+TEST(MathTests, fftShift_even_shouldReturnFttShift)
+{
+    arma::fvec a({1, 2, 3, 4, 5, 6});
+    arma::fvec b = fftShift(a);
+
+    EXPECT_FLOAT_EQ(b(0), 4);
+    EXPECT_FLOAT_EQ(b(1), 5);
+    EXPECT_FLOAT_EQ(b(2), 6);
+    EXPECT_FLOAT_EQ(b(3), 1);
+    EXPECT_FLOAT_EQ(b(4), 2);
+    EXPECT_FLOAT_EQ(b(5), 3);
+}
+
+TEST(MathTests, fftShift_odd_shouldReturnFttShift)
+{
+    arma::fvec a({1, 2, 3, 4, 5, 6, 7});
+    arma::fvec b = fftShift(a);
+
+    EXPECT_FLOAT_EQ(b(0), 5);
+    EXPECT_FLOAT_EQ(b(1), 6);
+    EXPECT_FLOAT_EQ(b(2), 7);
+    EXPECT_FLOAT_EQ(b(3), 1);
+    EXPECT_FLOAT_EQ(b(4), 2);
+    EXPECT_FLOAT_EQ(b(5), 3);
+    EXPECT_FLOAT_EQ(b(6), 4);
 }

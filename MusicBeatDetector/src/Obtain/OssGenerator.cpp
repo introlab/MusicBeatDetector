@@ -1,7 +1,7 @@
 #include <MusicBeatDetector/Obtain/OssGenerator.h>
 
 #include <Utils/Exception/NotSupportedException.h>
-#include <Utils/Math.h>
+#include <Utils/Math/Math.h>
 
 #include <limits>
 
@@ -69,7 +69,7 @@ float OssGenerator::calculateFlux()
     float flux = arma::sum(arma::abs(m_lastSpectrum - spectrum));
     m_lastSpectrum = spectrum;
 
-    return flux;
+    return std::isfinite(flux) ? flux : 0;
 }
 
 float OssGenerator::calculateOss()

@@ -31,6 +31,6 @@ TEST(OssGeneratorTests, generate_shouldReturnOss)
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
     OssGenerator ossGenerator(FrameSampleCount, 2 * FrameSampleCount);
-    EXPECT_DOUBLE_EQ(ossGenerator.generate(frame1), 0.2920454740524292);
-    EXPECT_DOUBLE_EQ(ossGenerator.generate(frame2), 0.93209505081176758);
+    EXPECT_FLOAT_EQ(ossGenerator.generate(frame1), 0.2920454740524292);
+    EXPECT_FLOAT_EQ(ossGenerator.generate(frame2), 0.93209505081176758);
 }
