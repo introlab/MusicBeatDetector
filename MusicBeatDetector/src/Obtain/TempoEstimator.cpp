@@ -15,14 +15,19 @@ TempoEstimator::TempoEstimator(float ossSamplingFrequency,
     float minBpm,
     float maxBpm) :
     m_ossSamplingFrequency(ossSamplingFrequency),
-    m_crossCorrelationCalculator(ossWindowSize),
-    m_minLag(static_cast<size_t>(60 * ossSamplingFrequency / maxBpm)),
-    m_maxLag(static_cast<size_t>(60 * ossSamplingFrequency / minBpm))
+    m_crossCorrelationCalculator(ossWindowSize)
 {
+    if (minBpm <= 0 || maxBpm <= 0)
+    {
+        THROW_NOT_SUPPORTED_EXCEPTION("minBpm and maxBpm must be greater than 0");
+    }
     if (maxBpm <= minBpm)
     {
-        THROW_NOT_SUPPORTED_EXCEPTION("maxLag must be greater than minLag");
+        THROW_NOT_SUPPORTED_EXCEPTION("maxBpm must be greater than minBpm");
     }
+
+    m_minLag = static_cast<size_t>(60 * ossSamplingFrequency / maxBpm);
+    m_maxLag = static_cast<size_t>(60 * ossSamplingFrequency / minBpm);
     if (ossWindowSize <= m_minLag || ossWindowSize <= m_maxLag)
     {
         THROW_NOT_SUPPORTED_EXCEPTION("ossWindowSize must be greater than minLag and maxLag");

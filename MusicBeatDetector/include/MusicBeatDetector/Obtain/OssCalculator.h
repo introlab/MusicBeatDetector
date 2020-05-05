@@ -1,5 +1,5 @@
-#ifndef MUSIC_BEAT_DETECTOR_OBTAIN_OSS_GENERATOR_H
-#define MUSIC_BEAT_DETECTOR_OBTAIN_OSS_GENERATOR_H
+#ifndef MUSIC_BEAT_DETECTOR_OBTAIN_OSS_CALCULATOR_H
+#define MUSIC_BEAT_DETECTOR_OBTAIN_OSS_CALCULATOR_H
 
 #include <Utils/Data/PcmAudioFrame.h>
 #include <Utils/Data/AudioFrame.h>
@@ -29,7 +29,7 @@ namespace introlab
                       std::size_t fluxHammingSize = 15);
         virtual ~OssCalculator();
 
-        float generate(const PcmAudioFrame& frame);
+        float calculate(const PcmAudioFrame& frame);
 
     private:
         float calculateFlux();

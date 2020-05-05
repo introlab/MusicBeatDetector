@@ -33,7 +33,7 @@ OssCalculator::~OssCalculator()
 {
 }
 
-float OssCalculator::generate(const PcmAudioFrame& frame)
+float OssCalculator::calculate(const PcmAudioFrame& frame)
 {
     if (frame.channelCount() != 1 || frame.sampleCount() != m_frameSampleCount)
     {

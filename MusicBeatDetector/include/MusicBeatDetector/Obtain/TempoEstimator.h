@@ -29,8 +29,8 @@ namespace introlab
     public:
         TempoEstimator(float ossSamplingFrequency = 44100.0 / 128,
             std::size_t ossWindowSize = 1024,
-            float minBpm = 49.93,
-            float maxBpm = 210.94);
+            float minBpm = 50,
+            float maxBpm = 180);
         virtual ~TempoEstimator();
 
         float estimateTempo(float oss);

@@ -19,7 +19,7 @@ TEST(OssCalculatorTests, generate_invalidFrameSampleCount_shouldReturnOss)
     PcmAudioFrame frame(PcmAudioFrameFormat::Float, 1, FrameSampleCount + 1);
     OssCalculator ossCalculator(FrameSampleCount, 2 * FrameSampleCount);
 
-    EXPECT_THROW(ossCalculator.generate(frame), NotSupportedException);
+    EXPECT_THROW(ossCalculator.calculate(frame), NotSupportedException);
 }
 
 TEST(OssCalculatorTests, generate_shouldReturnOss)
@@ -31,6 +31,6 @@ TEST(OssCalculatorTests, generate_shouldReturnOss)
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
     OssCalculator ossCalculator(FrameSampleCount, 2 * FrameSampleCount);
-    EXPECT_FLOAT_EQ(ossCalculator.generate(frame1), 0.2920454740524292);
-    EXPECT_FLOAT_EQ(ossCalculator.generate(frame2), 0.93209505081176758);
+    EXPECT_FLOAT_EQ(ossCalculator.calculate(frame1), 0.2920454740524292);
+    EXPECT_FLOAT_EQ(ossCalculator.calculate(frame2), 0.93209505081176758);
 }
