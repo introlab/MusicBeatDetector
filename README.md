@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     constexpr size_t FrameSampleCount = 128;
     constexpr size_t ChannelCount = 1; // Other values are not supported
 
-    float data[FrameSampleCount] {0};
+    float data[FrameSampleCount] = {0};
 
     try
     {
