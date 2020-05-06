@@ -46,7 +46,7 @@ float BpmEstimator::estimate(float oss)
     arma::fvec enhancedAutoCorrelation = calculateEnhancedAutoCorrelation();
 
     vector<size_t> candidateLags = calculateCandidateLags(enhancedAutoCorrelation);
-    std::size_t bestLag = getBestLag(candidateLags);
+    size_t bestLag = getBestLag(candidateLags);
 
     return 60 * m_ossSamplingFrequency / bestLag;
 }
