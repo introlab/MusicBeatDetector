@@ -53,7 +53,7 @@ float OssCalculator::calculate(const PcmAudioFrame& frame)
 
 float OssCalculator::calculateFlux()
 {
-    const float Gamma = 1;
+    const float Gamma = 25;
     const float Threshold = 3.7;
 
     arma::cx_fvec complexSignal = arma::conv_to<arma::cx_fvec>::from(m_windowedSignal % m_signalHamming);
@@ -63,7 +63,8 @@ float OssCalculator::calculateFlux()
     arma::fvec spectrum = arma::abs(complexSpectrum);
     spectrum = arma::clamp(spectrum, Threshold, numeric_limits<float>::max());
     spectrum -= Threshold;
-    spectrum = arma::log10(1 + Gamma * spectrum) / log10(1 + Gamma);
+    spectrum /= arma::max(spectrum);
+    spectrum = arma::log10(1 + Gamma * spectrum);
     spectrum /= arma::max(spectrum);
 
     float flux = arma::sum(arma::abs(m_lastSpectrum - spectrum));

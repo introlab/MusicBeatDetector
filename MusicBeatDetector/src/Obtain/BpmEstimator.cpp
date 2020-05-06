@@ -11,7 +11,7 @@ using namespace introlab;
 using namespace std;
 
 BpmEstimator::BpmEstimator(float ossSamplingFrequency,
-                           std::size_t ossWindowSize,
+                           size_t ossWindowSize,
                            float minBpm,
                            float maxBpm) :
     m_ossSamplingFrequency(ossSamplingFrequency),
@@ -113,7 +113,7 @@ BpmEstimator::CandidateScore BpmEstimator::calcultateCandidateLagScore(size_t la
     {
         for (size_t j = 0; j < PulseCount; j++)
         {
-            std::size_t pulseIndex = static_cast<size_t>(j * PulseSequencePeriodes[i] * lag);
+            size_t pulseIndex = static_cast<size_t>(j * PulseSequencePeriodes[i] * lag);
             if (pulseIndex < pulseTrain.n_elem)
             {
                 pulseTrain(pulseIndex) += PulseSequenceValues[i];
