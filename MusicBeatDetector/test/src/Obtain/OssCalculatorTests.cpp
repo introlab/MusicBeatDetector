@@ -31,6 +31,6 @@ TEST(OssCalculatorTests, calculate_shouldReturnOss)
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
     OssCalculator ossCalculator(FrameSampleCount, 2 * FrameSampleCount);
-    EXPECT_FLOAT_EQ(ossCalculator.calculate(frame1), 0.2920454740524292);
-    EXPECT_FLOAT_EQ(ossCalculator.calculate(frame2), 0.93209505081176758);
+    EXPECT_FLOAT_EQ(ossCalculator.calculate(frame1), 0.32191199);
+    EXPECT_FLOAT_EQ(ossCalculator.calculate(frame2), 0.96134341);
 }
