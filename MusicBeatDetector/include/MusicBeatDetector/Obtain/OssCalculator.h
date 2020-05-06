@@ -1,6 +1,7 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_OSS_CALCULATOR_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_OSS_CALCULATOR_H
 
+#include <Utils/ClassMacro.h>
 #include <Utils/Data/PcmAudioFrame.h>
 #include <Utils/Data/AudioFrame.h>
 #include <Utils/Data/ShiftRegister.h>
@@ -28,6 +29,9 @@ namespace introlab
                       std::size_t ossWindowSize = 1024,
                       std::size_t fluxHammingSize = 15);
         virtual ~OssCalculator();
+
+        DECLARE_NOT_COPYABLE(OssCalculator);
+        DECLARE_NOT_MOVABLE(OssCalculator);
 
         float calculate(const PcmAudioFrame& frame);
 

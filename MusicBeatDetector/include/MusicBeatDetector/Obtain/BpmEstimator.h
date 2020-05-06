@@ -1,6 +1,7 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_TEMPO_ESTIMATOR_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_TEMPO_ESTIMATOR_H
 
+#include <Utils/ClassMacro.h>
 #include <Utils/Math/CrossCorrelationCalculator.h>
 
 #include <armadillo>
@@ -32,6 +33,9 @@ namespace introlab
                      float minBpm = 50,
                      float maxBpm = 180);
         virtual ~BpmEstimator();
+
+        DECLARE_NOT_COPYABLE(BpmEstimator);
+        DECLARE_NOT_MOVABLE(BpmEstimator);
 
         float estimate(float oss);
 

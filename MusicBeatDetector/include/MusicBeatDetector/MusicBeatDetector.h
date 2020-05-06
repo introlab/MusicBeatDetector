@@ -6,6 +6,8 @@
 #include <MusicBeatDetector/Obtain/CbssCalculator.h>
 #include <MusicBeatDetector/Obtain/BeatClassifier.h>
 
+#include <Utils/ClassMacro.h>
+
 namespace introlab
 {
     struct Beat
@@ -33,6 +35,9 @@ namespace introlab
             float minBpm = 50,
             float maxBpm = 180);
         virtual ~MusicBeatDetector();
+
+        DECLARE_NOT_COPYABLE(MusicBeatDetector);
+        DECLARE_NOT_MOVABLE(MusicBeatDetector);
 
         Beat detect(const PcmAudioFrame& frame);
     };

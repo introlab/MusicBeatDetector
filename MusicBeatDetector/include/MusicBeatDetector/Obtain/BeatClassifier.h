@@ -1,6 +1,8 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_BEAT_CLASSIFIER_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_BEAT_CLASSIFIER_H
 
+#include <Utils/ClassMacro.h>
+
 #include <armadillo>
 
 #include <cstddef>
@@ -17,6 +19,9 @@ namespace introlab
     public:
         BeatClassifier(float ossSamplingFrequency = 44100.0 / 128, float minBpm = 50);
         virtual ~BeatClassifier();
+
+        DECLARE_NOT_COPYABLE(BeatClassifier);
+        DECLARE_NOT_MOVABLE(BeatClassifier);
 
         bool classify(float bpm, float cbss);
 
