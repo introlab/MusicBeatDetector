@@ -31,7 +31,7 @@ The following example shows how to use the library.
 ```cpp
 #include <MusicBeatDetector/MusicBeatDetector.h>
 
-#incluse <iostream>
+#include <iostream>
 
 using namespace introlab;
 using namespace std;
