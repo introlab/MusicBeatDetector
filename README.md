@@ -6,8 +6,7 @@ The following subsections explain how to use the library on Ubuntu.
 
 ### Install Dependencies
 ```bash
-sudo apt-get install cmake build-essential
-sudo apt-get install gfortran
+sudo apt-get install cmake build-essential gfortran texinfo
 ```
 
 ### Setup Submodules
