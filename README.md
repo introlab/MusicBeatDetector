@@ -1,6 +1,8 @@
 # MusicBeatDetector
 MusicBeatDetector is a small C++ library to estimate the song tempo and to detect if the beat is in the current frame. The algorithm can be used in real time and is based on [OBTAIN](https://arxiv.org/abs/1704.02216).
 
+Author(s): Marc-Antoine Maheux
+
 ## Setup (Ubuntu)
 The following subsections explain how to use the library on Ubuntu.
 
