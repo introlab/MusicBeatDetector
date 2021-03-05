@@ -3,6 +3,10 @@ MusicBeatDetector is a small C++ library to estimate the song tempo and to detec
 
 Author(s): Marc-Antoine Maheux
 
+## Dependencies
+
+* Most dependencies are part of the project with git submodules in the [MusicBeatDetector/3rdParty](MusicBeatDetector/3rdParty) directory. FFTW is copied because there is no buildable git repository.
+
 ## Setup (Ubuntu)
 The following subsections explain how to use the library on Ubuntu.
 
