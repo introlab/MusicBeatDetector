@@ -75,3 +75,13 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
+
+## License
+
+* [GPL-3.0 License ](LICENSE)
+
+## Sponsor
+
+![IntRoLab](https://introlab.3it.usherbrooke.ca/IntRoLab.png)
+
+[IntRoLab - Intelligent / Interactive / Integrated / Interdisciplinary Robot Lab](https://introlab.3it.usherbrooke.ca)
