@@ -1,0 +1,47 @@
+name: tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_and_run_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, ubuntu-20.04]
+        build_type: [Debug, Release]
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Install ubuntu dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install cmake build-essential gfortran texinfo
+
+    - name: Create build directory
+      run: |
+        mkdir build
+
+    - name: Run CMake
+      working-directory: build
+      run: cmake .. -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+
+    - name: Build
+      working-directory: build
+      run: make -j2
+
+    - name: Run UtilsTests
+      working-directory: build/Utils/test
+      run: ./UtilsTests
+
+    - name: Run MusicBeatDetectorTests
+      working-directory: build/MusicBeatDetector/test
+      run: ./MusicBeatDetectorTests
