@@ -8,7 +8,10 @@ if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif (POLICY CMP0048)
 
-project(mixer)
+project(MusicBeatDetector)
+
+# Default behavior is to enable tests
+option(MUSIC_BEAT_DETECTOR_ENABLE_TESTS "Build tests" ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -38,16 +41,15 @@ function(assign_source_group)
     endforeach ()
 endfunction(assign_source_group)
 
-
-set(openblas_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/OpenBLAS/libopenblas.a")
-set(fftw_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/fftw/build/lib/libfftw3f.a")
-
-
 add_subdirectory(3rdParty)
+add_definitions(-DARMA_DONT_USE_WRAPPER)
+
 add_subdirectory(Utils)
 add_subdirectory(MusicBeatDetector)
 
-set_target_properties(gmock PROPERTIES FOLDER 3rdParty)
-set_target_properties(gmock_main PROPERTIES FOLDER 3rdParty)
-set_target_properties(gtest PROPERTIES FOLDER 3rdParty)
-set_target_properties(gtest_main PROPERTIES FOLDER 3rdParty)
+if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
+    set_target_properties(gmock PROPERTIES FOLDER 3rdParty)
+    set_target_properties(gmock_main PROPERTIES FOLDER 3rdParty)
+    set_target_properties(gtest PROPERTIES FOLDER 3rdParty)
+    set_target_properties(gtest_main PROPERTIES FOLDER 3rdParty)
+endif()

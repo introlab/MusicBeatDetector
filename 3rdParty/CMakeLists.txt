@@ -5,7 +5,7 @@ if (POLICY CMP0048)
 endif (POLICY CMP0048)
 
 if (WIN32)
-    #TODO
+    message(FATAL_ERROR "Windows is not supported yet.")
 elseif (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 
@@ -16,9 +16,11 @@ elseif (UNIX)
     add_custom_target(fftw
         COMMAND bash "${CMAKE_CURRENT_SOURCE_DIR}/make_fftw_unix.bash"
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/fftw)
+
+    set(openblas_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/OpenBLAS/libopenblas.a" CACHE INTERNAL "")
+    set(fftw_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/fftw/build/lib/libfftw3f.a" CACHE INTERNAL "")
 endif (WIN32)
 
-add_subdirectory(googletest)
-
-add_subdirectory(armadillo-code)
-add_dependencies(armadillo openblas)
+if (MUSIC_BEAT_DETECTOR_ENABLE_TESTS)
+    add_subdirectory(googletest)
+endif()
