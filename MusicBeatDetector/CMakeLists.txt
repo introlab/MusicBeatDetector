@@ -20,14 +20,16 @@ add_library(MusicBeatDetector
 
 target_link_libraries(MusicBeatDetector
     Utils
-    armadillo
     ${openblas_LIBRARY}
     ${fftw_LIBRARY}
     gfortran)
 
 set_property(TARGET MusicBeatDetector PROPERTY CXX_STANDARD 14)
-add_dependencies(MusicBeatDetector fftw)
+add_dependencies(MusicBeatDetector fftw openblas)
+add_definitions(-DARMA_DONT_USE_WRAPPER)
 
 assign_source_group(${source_files})
 
-add_subdirectory(test)
+if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
+    add_subdirectory(test)
+endif()

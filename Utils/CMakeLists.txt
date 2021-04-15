@@ -28,4 +28,6 @@ add_dependencies(Utils fftw)
 
 assign_source_group(${source_files})
 
-add_subdirectory(test)
+if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
+    add_subdirectory(test)
+endif()

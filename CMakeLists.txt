@@ -8,7 +8,10 @@ if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif (POLICY CMP0048)
 
-project(mixer)
+project(MusicBeatDetector)
+
+# Default behavior is to enable tests
+option(MUSIC_BEAT_DERECTOR_ENABLE_TESTS "Build tests" ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -37,11 +40,6 @@ function(assign_source_group)
         source_group("${_source_path_msvc}" FILES "${_source}")
     endforeach ()
 endfunction(assign_source_group)
-
-
-set(openblas_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/OpenBLAS/libopenblas.a")
-set(fftw_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/fftw/build/lib/libfftw3f.a")
-
 
 add_subdirectory(3rdParty)
 add_subdirectory(Utils)
