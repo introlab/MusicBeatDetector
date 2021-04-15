@@ -18,13 +18,12 @@ add_library(Utils
     ${source_files})
 
 target_link_libraries(Utils
-        armadillo
         ${openblas_LIBRARY}
         ${fftw_LIBRARY}
         gfortran)
 
 set_property(TARGET Utils PROPERTY CXX_STANDARD 14)
-add_dependencies(Utils fftw)
+add_dependencies(Utils fftw openblas)
 
 assign_source_group(${source_files})
 

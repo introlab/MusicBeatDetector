@@ -26,7 +26,6 @@ target_link_libraries(MusicBeatDetector
 
 set_property(TARGET MusicBeatDetector PROPERTY CXX_STANDARD 14)
 add_dependencies(MusicBeatDetector fftw openblas)
-add_definitions(-DARMA_DONT_USE_WRAPPER)
 
 assign_source_group(${source_files})
 
