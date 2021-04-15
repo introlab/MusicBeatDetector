@@ -21,6 +21,6 @@ elseif (UNIX)
     set(fftw_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/fftw/build/lib/libfftw3f.a" CACHE INTERNAL "")
 endif (WIN32)
 
-if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
+if (MUSIC_BEAT_DETECTOR_ENABLE_TESTS)
     add_subdirectory(googletest)
 endif()

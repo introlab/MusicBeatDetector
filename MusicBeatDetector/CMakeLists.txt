@@ -30,6 +30,6 @@ add_definitions(-DARMA_DONT_USE_WRAPPER)
 
 assign_source_group(${source_files})
 
-if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
+if (MUSIC_BEAT_DETECTOR_ENABLE_TESTS)
     add_subdirectory(test)
 endif()

@@ -11,7 +11,7 @@ endif (POLICY CMP0048)
 project(MusicBeatDetector)
 
 # Default behavior is to enable tests
-option(MUSIC_BEAT_DERECTOR_ENABLE_TESTS "Build tests" ON)
+option(MUSIC_BEAT_DETECTOR_ENABLE_TESTS "Build tests" ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -45,7 +45,9 @@ add_subdirectory(3rdParty)
 add_subdirectory(Utils)
 add_subdirectory(MusicBeatDetector)
 
-set_target_properties(gmock PROPERTIES FOLDER 3rdParty)
-set_target_properties(gmock_main PROPERTIES FOLDER 3rdParty)
-set_target_properties(gtest PROPERTIES FOLDER 3rdParty)
-set_target_properties(gtest_main PROPERTIES FOLDER 3rdParty)
+if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
+    set_target_properties(gmock PROPERTIES FOLDER 3rdParty)
+    set_target_properties(gmock_main PROPERTIES FOLDER 3rdParty)
+    set_target_properties(gtest PROPERTIES FOLDER 3rdParty)
+    set_target_properties(gtest_main PROPERTIES FOLDER 3rdParty)
+endif()
