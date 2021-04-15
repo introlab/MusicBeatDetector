@@ -21,7 +21,6 @@ set_property(TARGET UtilsTests PROPERTY CXX_STANDARD 14)
 
 target_link_libraries(UtilsTests
     Utils
-    armadillo
     ${openblas_LIBRARY}
     ${fftw_LIBRARY}
     gtest
