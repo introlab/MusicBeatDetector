@@ -13,9 +13,11 @@ using namespace std;
 BpmEstimator::BpmEstimator(float ossSamplingFrequency,
                            size_t ossWindowSize,
                            float minBpm,
-                           float maxBpm) :
+                           float maxBpm,
+                           size_t candidateCount) :
     m_ossSamplingFrequency(ossSamplingFrequency),
-    m_crossCorrelationCalculator(ossWindowSize)
+    m_crossCorrelationCalculator(ossWindowSize),
+    m_candidateCount(candidateCount)
 {
     if (minBpm <= 0 || maxBpm <= 0)
     {
@@ -69,13 +71,12 @@ arma::fvec BpmEstimator::calculateEnhancedAutoCorrelation()
 
 vector<size_t> BpmEstimator::calculateCandidateLags(const arma::fvec& enhancedAutoCorrelation)
 {
-    constexpr size_t CandidateCount = 10;
     vector<size_t> candidateLags;
-    candidateLags.reserve(CandidateCount);
+    candidateLags.reserve(m_candidateCount);
 
     arma::fvec enhancedAutoCorrelationCopy = enhancedAutoCorrelation(arma::span(m_minLag, m_maxLag));
 
-    while (candidateLags.size() < CandidateCount)
+    while (candidateLags.size() < m_candidateCount)
     {
         size_t maxIndex = enhancedAutoCorrelationCopy.index_max();
         enhancedAutoCorrelationCopy(maxIndex) = -numeric_limits<float>::max();

@@ -22,6 +22,7 @@ namespace introlab
         float m_ossSamplingFrequency;
         std::size_t m_minLag;
         std::size_t m_maxLag;
+        std::size_t m_candidateCount;
 
         arma::fvec m_oss;
 
@@ -31,7 +32,8 @@ namespace introlab
         BpmEstimator(float ossSamplingFrequency = 44100.0 / 128,
                      std::size_t ossWindowSize = 1024,
                      float minBpm = 50,
-                     float maxBpm = 180);
+                     float maxBpm = 180,
+                     std::size_t candidateCount = 10);
         virtual ~BpmEstimator();
 
         DECLARE_NOT_COPYABLE(BpmEstimator);
