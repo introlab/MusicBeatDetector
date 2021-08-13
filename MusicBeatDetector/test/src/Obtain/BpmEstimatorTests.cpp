@@ -14,8 +14,10 @@ TEST(BpmEstimatorTests, constructor_negativeMinBpm_range)
     constexpr size_t OssWindowSize = 1024;
     constexpr float MinBpm = -49.93;
     constexpr float MaxBpm = 210.94;
+    constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+        NotSupportedException);
 }
 
 TEST(BpmEstimatorTests, constructor_negativeMaxBpm_range)
@@ -24,8 +26,10 @@ TEST(BpmEstimatorTests, constructor_negativeMaxBpm_range)
     constexpr size_t OssWindowSize = 1024;
     constexpr float MinBpm = 49.93;
     constexpr float MaxBpm = -210.94;
+    constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+        NotSupportedException);
 }
 
 TEST(BpmEstimatorTests, constructor_invalidLagRange_range)
@@ -34,8 +38,22 @@ TEST(BpmEstimatorTests, constructor_invalidLagRange_range)
     constexpr size_t OssWindowSize = 256;
     constexpr float MinBpm = 10;
     constexpr float MaxBpm = 9;
+    constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+        NotSupportedException);
+}
+
+TEST(BpmEstimatorTests, constructor_invalidCandidateCount_range)
+{
+    constexpr float OssSamplingFrequency = 344.5;
+    constexpr size_t OssWindowSize = 256;
+    constexpr float MinBpm = 10;
+    constexpr float MaxBpm = 9;
+    constexpr size_t CandidateCount = 0;
+
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+        NotSupportedException);
 }
 
 TEST(BpmEstimatorTests, constructor_invalidOssWindowSize_range)
@@ -44,8 +62,10 @@ TEST(BpmEstimatorTests, constructor_invalidOssWindowSize_range)
     constexpr size_t OssWindowSize = 10;
     constexpr float MinBpm = 10;
     constexpr float MaxBpm = 9;
+    constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm), NotSupportedException);
+    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+        NotSupportedException);
 }
 
 TEST(BpmEstimatorTests, estimate_shouldReturnBpm)
@@ -54,6 +74,7 @@ TEST(BpmEstimatorTests, estimate_shouldReturnBpm)
     constexpr size_t OssWindowSize = 4;
     constexpr float MinBpm = 10000;
     constexpr float MaxBpm = 20000;
+    constexpr size_t CandidateCount = 1;
 
     constexpr size_t FrameSampleCount = 4;
     float frameData1[FrameSampleCount] = {1, 0, -1, 0};
@@ -63,7 +84,7 @@ TEST(BpmEstimatorTests, estimate_shouldReturnBpm)
     PcmAudioFrame frame2(PcmAudioFrameFormat::Float, 1, FrameSampleCount, reinterpret_cast<uint8_t*>(frameData2));
 
     OssCalculator ossCalculator(FrameSampleCount);
-    BpmEstimator bpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm);
+    BpmEstimator bpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount);
 
     float oss1 = ossCalculator.calculate(frame1);
     float oss2 = ossCalculator.calculate(frame2);

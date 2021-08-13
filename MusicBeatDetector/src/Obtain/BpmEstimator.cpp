@@ -27,6 +27,10 @@ BpmEstimator::BpmEstimator(float ossSamplingFrequency,
     {
         THROW_NOT_SUPPORTED_EXCEPTION("maxBpm must be greater than minBpm");
     }
+    if (m_candidateCount < 1)
+    {
+        THROW_NOT_SUPPORTED_EXCEPTION("candidateCount must be at least 1");
+    }
 
     m_minLag = static_cast<size_t>(60 * ossSamplingFrequency / maxBpm);
     m_maxLag = static_cast<size_t>(60 * ossSamplingFrequency / minBpm);
