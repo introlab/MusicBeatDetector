@@ -33,7 +33,8 @@ namespace introlab
             std::size_t fluxHammingSize = 15,
             std::size_t ossBpmWindowSize = 1024,
             float minBpm = 50,
-            float maxBpm = 180);
+            float maxBpm = 180,
+            std::size_t bpmCandidateCount = 10);
         virtual ~MusicBeatDetector();
 
         DECLARE_NOT_COPYABLE(MusicBeatDetector);

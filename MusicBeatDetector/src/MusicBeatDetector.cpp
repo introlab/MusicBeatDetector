@@ -11,9 +11,10 @@ MusicBeatDetector::MusicBeatDetector(float samplingFrequency,
     size_t fluxHammingSize,
     size_t ossBpmWindowSize,
     float minBpm,
-    float maxBpm) :
+    float maxBpm,
+    size_t bpmCandidateCount) :
     m_ossCalculator(frameSampleCount, ossFttWindowSize, fluxHammingSize),
-    m_bpmEstimator(samplingFrequency / frameSampleCount, ossBpmWindowSize, minBpm, maxBpm),
+    m_bpmEstimator(samplingFrequency / frameSampleCount, ossBpmWindowSize, minBpm, maxBpm, bpmCandidateCount),
     m_cbssCalculator(samplingFrequency / frameSampleCount, minBpm),
     m_beatClassifier(samplingFrequency / frameSampleCount, minBpm)
 {
