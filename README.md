@@ -9,6 +9,9 @@ Author(s): Marc-Antoine Maheux
 
 * Most dependencies are part of the project with git submodules in the [MusicBeatDetector/3rdParty](MusicBeatDetector/3rdParty) directory. FFTW is copied because there is no buildable git repository.
 
+## ROS Users
+* [beat_detector_node](https://github.com/introlab/audio_utils#beat_detector_node) is a ROS node that integrates this library.
+
 ## Setup (Ubuntu)
 The following subsections explain how to use the library on Ubuntu.
 
