@@ -291,6 +291,35 @@ TEST(PcmAudioFrameTests, clear_shouldSetAllBytesTo0)
     }
 }
 
+TEST(PcmAudioFrameTests, slice_shouldReturnBorrowedSlice)
+{
+    PcmAudioFrame frame(PcmAudioFrameFormat::Unsigned16, ChannelCount, SampleCount);
+    for (size_t i = 0; i < frame.size(); i++)
+    {
+        frame[i] = i + 1;
+    }
+
+    PcmAudioFrame slice1 = frame.slice(0, 1);
+    PcmAudioFrame slice2 = frame.slice(1, 2);
+    PcmAudioFrame slice3 = frame.slice(2, 1);
+
+    constexpr uint8_t ExpectedSlice1[] = {1, 2, 3, 4};
+    constexpr uint8_t ExpectedSlice2[] = {5, 6, 7, 8, 9, 10, 11, 12};
+    constexpr uint8_t ExpectedSlice3[] = {9, 10, 11, 12};
+
+    EXPECT_FALSE(slice1.hasOwnership());
+    ASSERT_EQ(slice1.size(), 4);
+    EXPECT_EQ(memcmp(slice1.data(), ExpectedSlice1, slice1.size()), 0);
+
+    EXPECT_FALSE(slice2.hasOwnership());
+    ASSERT_EQ(slice2.size(), 8);
+    EXPECT_EQ(memcmp(slice2.data(), ExpectedSlice2, slice2.size()), 0);
+
+    EXPECT_FALSE(slice3.hasOwnership());
+    ASSERT_EQ(slice3.size(), 4);
+    EXPECT_EQ(memcmp(slice3.data(), ExpectedSlice3, slice3.size()), 0);
+}
+
 TEST(PcmAudioFrameTests, writeChannel_shouldWriteTheSpecifiedChannel)
 {
     PcmAudioFrame frame0(PcmAudioFrameFormat::Unsigned24, ChannelCount, ChannelCount);
