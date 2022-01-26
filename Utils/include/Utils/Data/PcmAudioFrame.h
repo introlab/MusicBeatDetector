@@ -53,6 +53,7 @@ namespace introlab
         uint8_t operator[](std::size_t i) const;
 
         void clear();
+        PcmAudioFrame slice(size_t sampleIndex, size_t sampleCount);
         void writeChannel(std::size_t thisChannelIndex, const PcmAudioFrame& other, std::size_t otherChannelIndex);
 
         template<class T>
@@ -117,6 +118,12 @@ namespace introlab
     inline void PcmAudioFrame::clear()
     {
         std::memset(m_data, 0, size());
+    }
+
+    inline PcmAudioFrame PcmAudioFrame::slice(size_t sampleIndex, size_t sampleCount)
+    {
+        uint8_t* data = m_data + introlab::size(m_format, m_channelCount, sampleIndex);
+        return PcmAudioFrame(m_format, m_channelCount, sampleCount, data);
     }
 
     template<class T>
