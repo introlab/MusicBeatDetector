@@ -16,20 +16,20 @@ include_directories(include)
 
 
 file(GLOB_RECURSE
-    source_files
-    src/*
-    include/*)
+        source_files
+        src/*
+        include/*)
 
 add_executable(MusicBeatDetectorTests
-    ${source_files})
+        ${source_files})
 
 target_link_libraries(MusicBeatDetectorTests
-    MusicBeatDetector
-    Utils
-    ${openblas_LIBRARY}
-    ${fftw_LIBRARY}
-    gtest
-    gmock)
+        MusicBeatDetector
+        Utils
+        ${openblas_LIBRARY}
+        ${fftw_LIBRARY}
+        gtest
+        gmock)
 
 set_property(TARGET MusicBeatDetectorTests PROPERTY CXX_STANDARD 14)
 

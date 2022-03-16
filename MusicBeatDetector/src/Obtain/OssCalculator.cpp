@@ -8,10 +8,10 @@
 using namespace introlab;
 using namespace std;
 
-OssCalculator::OssCalculator(size_t frameSampleCount, size_t ossWindowSize, size_t fluxHammingSize) :
-    m_frameSampleCount(frameSampleCount),
-    m_fluxShiftRegister(fluxHammingSize),
-    m_frame(1, frameSampleCount)
+OssCalculator::OssCalculator(size_t frameSampleCount, size_t ossWindowSize, size_t fluxHammingSize)
+    : m_frameSampleCount(frameSampleCount),
+      m_fluxShiftRegister(fluxHammingSize),
+      m_frame(1, frameSampleCount)
 {
     if (ossWindowSize < frameSampleCount)
     {
@@ -29,9 +29,7 @@ OssCalculator::OssCalculator(size_t frameSampleCount, size_t ossWindowSize, size
     m_windowedSignal = arma::zeros<arma::fvec>(ossWindowSize);
 }
 
-OssCalculator::~OssCalculator()
-{
-}
+OssCalculator::~OssCalculator() {}
 
 float OssCalculator::calculate(const PcmAudioFrame& frame)
 {
@@ -42,8 +40,8 @@ float OssCalculator::calculate(const PcmAudioFrame& frame)
 
     m_frame = frame;
     arma::fvec frameVec(m_frame.data(), m_frameSampleCount);
-    m_windowedSignal = arma::join_cols(m_windowedSignal(arma::span(m_frameSampleCount, m_windowedSignal.n_elem - 1)),
-        frameVec);
+    m_windowedSignal =
+        arma::join_cols(m_windowedSignal(arma::span(m_frameSampleCount, m_windowedSignal.n_elem - 1)), frameVec);
 
     float flux = calculateFlux();
     m_fluxShiftRegister.shift(flux);

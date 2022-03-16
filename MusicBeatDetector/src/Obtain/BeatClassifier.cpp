@@ -10,9 +10,9 @@ using namespace std;
 
 static constexpr size_t PulseCount = 2;
 
-BeatClassifier::BeatClassifier(float ossSamplingFrequency, float minBpm) :
-    m_ossSamplingFrequency(ossSamplingFrequency),
-    m_classificationCountAfterBeat(0)
+BeatClassifier::BeatClassifier(float ossSamplingFrequency, float minBpm)
+    : m_ossSamplingFrequency(ossSamplingFrequency),
+      m_classificationCountAfterBeat(0)
 {
     if (minBpm <= 0)
     {
@@ -23,9 +23,7 @@ BeatClassifier::BeatClassifier(float ossSamplingFrequency, float minBpm) :
     m_cbss = arma::zeros<arma::fvec>(PulseCount * maxLag);
 }
 
-BeatClassifier::~BeatClassifier()
-{
-}
+BeatClassifier::~BeatClassifier() {}
 
 bool BeatClassifier::classify(float bpm, float cbss)
 {
@@ -36,7 +34,8 @@ bool BeatClassifier::classify(float bpm, float cbss)
     m_cbss = arma::join_cols(arma::fvec({cbss}), m_cbss(arma::span(0, m_cbss.n_elem - 2)));
     arma::fvec pulseTrain = generatePulseTrain(beatPeriod);
 
-    arma::span crossCorrelationSpan(0,
+    arma::span crossCorrelationSpan(
+        0,
         min(static_cast<size_t>(m_cbss.n_elem - 1), beatPeriod + CrossCorrelationExtraPadding));
     arma::fvec a = crossCorrelation(m_cbss(crossCorrelationSpan), pulseTrain(crossCorrelationSpan));
     a = a(arma::span(m_cbss(crossCorrelationSpan).n_elem - 1, a.n_elem - 1));

@@ -42,29 +42,38 @@ namespace introlab
     };
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(std::size_t channelCount, std::size_t sampleCount) :
-        m_channelCount(channelCount), m_sampleCount(sampleCount), m_hasOwnership(true)
+    inline AudioFrame<T>::AudioFrame(std::size_t channelCount, std::size_t sampleCount)
+        : m_channelCount(channelCount),
+          m_sampleCount(sampleCount),
+          m_hasOwnership(true)
     {
         m_data = new T[m_channelCount * m_sampleCount];
     }
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(std::size_t channelCount, std::size_t sampleCount, T* data) :
-        m_channelCount(channelCount), m_sampleCount(sampleCount), m_data(data), m_hasOwnership(false)
+    inline AudioFrame<T>::AudioFrame(std::size_t channelCount, std::size_t sampleCount, T* data)
+        : m_channelCount(channelCount),
+          m_sampleCount(sampleCount),
+          m_data(data),
+          m_hasOwnership(false)
     {
     }
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(const AudioFrame<T>& other) :
-        m_channelCount(other.m_channelCount), m_sampleCount(other.m_sampleCount), m_hasOwnership(true)
+    inline AudioFrame<T>::AudioFrame(const AudioFrame<T>& other)
+        : m_channelCount(other.m_channelCount),
+          m_sampleCount(other.m_sampleCount),
+          m_hasOwnership(true)
     {
         m_data = new T[m_channelCount * m_sampleCount];
         std::memcpy(m_data, other.m_data, m_channelCount * m_sampleCount * sizeof(T));
     }
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(AudioFrame<T>&& other):
-        m_channelCount(other.m_channelCount), m_sampleCount(other.m_sampleCount), m_hasOwnership(other.m_hasOwnership)
+    inline AudioFrame<T>::AudioFrame(AudioFrame<T>&& other)
+        : m_channelCount(other.m_channelCount),
+          m_sampleCount(other.m_sampleCount),
+          m_hasOwnership(other.m_hasOwnership)
     {
         m_data = other.m_data;
 
@@ -176,4 +185,3 @@ namespace introlab
 }
 
 #endif
-

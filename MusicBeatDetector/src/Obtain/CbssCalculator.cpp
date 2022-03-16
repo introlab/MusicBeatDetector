@@ -5,8 +5,7 @@
 using namespace introlab;
 using namespace std;
 
-CbssCalculator::CbssCalculator(float ossSamplingFrequency, float minBpm) :
-    m_ossSamplingFrequency(ossSamplingFrequency)
+CbssCalculator::CbssCalculator(float ossSamplingFrequency, float minBpm) : m_ossSamplingFrequency(ossSamplingFrequency)
 {
     if (minBpm <= 0)
     {
@@ -17,9 +16,7 @@ CbssCalculator::CbssCalculator(float ossSamplingFrequency, float minBpm) :
     m_cbss = arma::zeros<arma::fvec>(4 * maxLag);
 }
 
-CbssCalculator::~CbssCalculator()
-{
-}
+CbssCalculator::~CbssCalculator() {}
 
 float CbssCalculator::calculate(float bpm, float oss)
 {

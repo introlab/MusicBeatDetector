@@ -29,11 +29,12 @@ namespace introlab
         CrossCorrelationCalculator m_crossCorrelationCalculator;
 
     public:
-        BpmEstimator(float ossSamplingFrequency = 44100.0 / 128,
-                     std::size_t ossWindowSize = 1024,
-                     float minBpm = 50,
-                     float maxBpm = 180,
-                     std::size_t candidateCount = 10);
+        BpmEstimator(
+            float ossSamplingFrequency = 44100.0 / 128,
+            std::size_t ossWindowSize = 1024,
+            float minBpm = 50,
+            float maxBpm = 180,
+            std::size_t candidateCount = 10);
         virtual ~BpmEstimator();
 
         DECLARE_NOT_COPYABLE(BpmEstimator);

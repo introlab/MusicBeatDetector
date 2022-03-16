@@ -3,7 +3,7 @@
 
 #include <Utils/Exception/LoggedException.h>
 
-#define THROW_NOT_SUPPORTED_EXCEPTION(message) \
+#define THROW_NOT_SUPPORTED_EXCEPTION(message)                                                                         \
     throw introlab::NotSupportedException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (message))
 
 namespace introlab
@@ -11,7 +11,8 @@ namespace introlab
     class NotSupportedException : public LoggedException
     {
     public:
-        NotSupportedException(const std::string& filename,
+        NotSupportedException(
+            const std::string& filename,
             const std::string& function,
             int line,
             const std::string& message);

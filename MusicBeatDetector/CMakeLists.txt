@@ -10,19 +10,19 @@ include_directories(../Utils/include)
 include_directories(include)
 
 file(GLOB_RECURSE
-    source_files
-    src/*
-    include/*)
+        source_files
+        src/*
+        include/*)
 
 add_library(MusicBeatDetector
-    STATIC
-    ${source_files})
+        STATIC
+        ${source_files})
 
 target_link_libraries(MusicBeatDetector
-    Utils
-    ${openblas_LIBRARY}
-    ${fftw_LIBRARY}
-    gfortran)
+        Utils
+        ${openblas_LIBRARY}
+        ${fftw_LIBRARY}
+        gfortran)
 
 set_property(TARGET MusicBeatDetector PROPERTY CXX_STANDARD 14)
 add_dependencies(MusicBeatDetector fftw openblas)
@@ -31,4 +31,4 @@ assign_source_group(${source_files})
 
 if (MUSIC_BEAT_DETECTOR_ENABLE_TESTS)
     add_subdirectory(test)
-endif()
+endif ()

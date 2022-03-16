@@ -22,7 +22,11 @@ TEST(ArrayToPcmConverterTests, convertSigned8_shouldConvertTheDataFromFloatingPo
     input[6] = 0.25;
     input[7] = 1.1;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Signed8);
 
     EXPECT_EQ(output[0], -128);
@@ -52,7 +56,11 @@ TEST(ArrayToPcmConverterTests, convertSigned16_shouldConvertTheDataFromFloatingP
     input[6] = 0.25;
     input[7] = 1.1;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Signed16);
 
     EXPECT_EQ(output[0], -32768);
@@ -80,7 +88,11 @@ TEST(ArrayToPcmConverterTests, convertSigned24_shouldConvertTheDataFromFloatingP
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, output, FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        output,
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Signed24);
 
     EXPECT_EQ(output[0], 0x00);
@@ -123,7 +135,11 @@ TEST(ArrayToPcmConverterTests, convertSignedPadded24_shouldConvertTheDataFromFlo
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::SignedPadded24);
 
     EXPECT_EQ(output[0], -8388608);
@@ -149,7 +165,11 @@ TEST(ArrayToPcmConverterTests, convertSigned32_shouldConvertTheDataFromFloatingP
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Signed32);
 
     EXPECT_EQ(output[0], -2147483648);
@@ -175,7 +195,11 @@ TEST(ArrayToPcmConverterTests, convertUnsigned8_shouldConvertTheDataFromFloating
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, output, FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        output,
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Unsigned8);
 
     EXPECT_EQ(output[0], 0);
@@ -201,7 +225,11 @@ TEST(ArrayToPcmConverterTests, convertUnsigned16_shouldConvertTheDataFromFloatin
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Unsigned16);
 
     EXPECT_EQ(output[0], 0);
@@ -227,7 +255,11 @@ TEST(ArrayToPcmConverterTests, convertUnsigned24_shouldConvertTheDataFromFloatin
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, output, FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        output,
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Unsigned24);
 
     EXPECT_EQ(output[0], 0x00);
@@ -270,7 +302,11 @@ TEST(ArrayToPcmConverterTests, convertUnsignedPadded24_shouldConvertTheDataFromF
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::UnsignedPadded24);
 
     EXPECT_EQ(output[0], 0);
@@ -296,7 +332,11 @@ TEST(ArrayToPcmConverterTests, convertUnsigned32_shouldConvertTheDataFromFloatin
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Unsigned32);
 
     EXPECT_EQ(output[0], 0);
@@ -322,7 +362,11 @@ TEST(ArrayToPcmConverterTests, convertFloat_shouldConvertTheDataFromFloatingPoin
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Float);
 
     EXPECT_EQ(output[0], -1);
@@ -348,7 +392,11 @@ TEST(ArrayToPcmConverterTests, convertDouble_shouldConvertTheDataFromFloatingPoi
     input[4] = 0.5;
     input[5] = 0.25;
 
-    ArrayToPcmConverter::convertArrayToPcm(input, reinterpret_cast<uint8_t*>(output), FrameSampleCount, ChannelCount,
+    ArrayToPcmConverter::convertArrayToPcm(
+        input,
+        reinterpret_cast<uint8_t*>(output),
+        FrameSampleCount,
+        ChannelCount,
         PcmAudioFrameFormat::Double);
 
     EXPECT_EQ(output[0], -1);

@@ -15,7 +15,7 @@ namespace introlab
     {
     };
 
-    template<class ... Types>
+    template<class... Types>
     struct IsReturningBool<bool(Types...)> : std::true_type
     {
     };

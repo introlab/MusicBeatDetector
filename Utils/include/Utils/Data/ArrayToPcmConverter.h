@@ -20,36 +20,59 @@ namespace introlab
         static T saturateOutput(T value, T min, T max);
 
         template<class T, class PcmT>
-        static void arrayToSignedPcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
+        static void arrayToSignedPcm(
+            const T* input,
+            uint8_t* outputBytes,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void arrayToSigned24Pcm(const T* input, uint8_t* output, std::size_t frameSampleCount,
-            std::size_t channelCount);
+        static void
+            arrayToSigned24Pcm(const T* input, uint8_t* output, std::size_t frameSampleCount, std::size_t channelCount);
 
         template<class T>
-        static void arrayToSignedPadded24Pcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
+        static void arrayToSignedPadded24Pcm(
+            const T* input,
+            uint8_t* outputBytes,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T, class PcmT>
-        static void arrayToUnsignedPcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
+        static void arrayToUnsignedPcm(
+            const T* input,
+            uint8_t* outputBytes,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void arrayToUnsigned24Pcm(const T* input, uint8_t* output, std::size_t frameSampleCount,
+        static void arrayToUnsigned24Pcm(
+            const T* input,
+            uint8_t* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void arrayToUnsignedPadded24Pcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
+        static void arrayToUnsignedPadded24Pcm(
+            const T* input,
+            uint8_t* outputBytes,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T, class PcmT>
-        static void arrayToFloatingPointPcm(const T* input, uint8_t* outputBytes,
-            std::size_t frameSampleCount, std::size_t channelCount);
+        static void arrayToFloatingPointPcm(
+            const T* input,
+            uint8_t* outputBytes,
+            std::size_t frameSampleCount,
+            std::size_t channelCount);
+
     public:
         template<class T>
-        static void convertArrayToPcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
-            std::size_t channelCount, PcmAudioFrameFormat format);
+        static void convertArrayToPcm(
+            const T* input,
+            uint8_t* outputBytes,
+            std::size_t frameSampleCount,
+            std::size_t channelCount,
+            PcmAudioFrameFormat format);
     };
 
     template<class T>
@@ -74,7 +97,10 @@ namespace introlab
     }
 
     template<class T, class PcmT>
-    void ArrayToPcmConverter::arrayToSignedPcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
+    void ArrayToPcmConverter::arrayToSignedPcm(
+        const T* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
@@ -87,16 +113,20 @@ namespace introlab
             std::size_t sampleIndex = i / channelCount;
 
             T scaledSample = -input[channelIndex * frameSampleCount + sampleIndex] * std::numeric_limits<PcmT>::min();
-            T sample = saturateOutput(scaledSample,
-                                      static_cast<T>(std::numeric_limits<PcmT>::min()),
-                                      static_cast<T>(std::numeric_limits<PcmT>::max()));
+            T sample = saturateOutput(
+                scaledSample,
+                static_cast<T>(std::numeric_limits<PcmT>::min()),
+                static_cast<T>(std::numeric_limits<PcmT>::max()));
             output[i] = static_cast<PcmT>(round(sample));
         }
     }
 
     template<>
-    inline void ArrayToPcmConverter::arrayToSignedPcm<float, int32_t>(const float* input, uint8_t* outputBytes,
-        std::size_t frameSampleCount, std::size_t channelCount)
+    inline void ArrayToPcmConverter::arrayToSignedPcm<float, int32_t>(
+        const float* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
+        std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
 
@@ -107,9 +137,10 @@ namespace introlab
             std::size_t channelIndex = i % channelCount;
             std::size_t sampleIndex = i / channelCount;
 
-            double scaledSample = -input[channelIndex * frameSampleCount + sampleIndex] *
-                std::numeric_limits<int32_t>::min();
-            double sample = saturateOutput(scaledSample,
+            double scaledSample =
+                -input[channelIndex * frameSampleCount + sampleIndex] * std::numeric_limits<int32_t>::min();
+            double sample = saturateOutput(
+                scaledSample,
                 static_cast<double>(std::numeric_limits<int32_t>::min()),
                 static_cast<double>(std::numeric_limits<int32_t>::max()));
             output[i] = static_cast<int32_t>(round(sample));
@@ -117,7 +148,10 @@ namespace introlab
     }
 
     template<class T>
-    void ArrayToPcmConverter::arrayToSigned24Pcm(const T* input, uint8_t* output, std::size_t frameSampleCount,
+    void ArrayToPcmConverter::arrayToSigned24Pcm(
+        const T* input,
+        uint8_t* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         constexpr T AbsMin = 1 << 23;
@@ -144,8 +178,11 @@ namespace introlab
     }
 
     template<class T>
-    void ArrayToPcmConverter::arrayToSignedPadded24Pcm(const T* input, uint8_t* outputBytes,
-        std::size_t frameSampleCount, std::size_t channelCount)
+    void ArrayToPcmConverter::arrayToSignedPadded24Pcm(
+        const T* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
+        std::size_t channelCount)
     {
         constexpr T AbsMin = 1 << 23;
 
@@ -165,7 +202,10 @@ namespace introlab
     }
 
     template<class T, class PcmT>
-    void ArrayToPcmConverter::arrayToUnsignedPcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
+    void ArrayToPcmConverter::arrayToUnsignedPcm(
+        const T* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
@@ -177,18 +217,22 @@ namespace introlab
             std::size_t channelIndex = i % channelCount;
             std::size_t sampleIndex = i / channelCount;
 
-            T scaledSample = (input[channelIndex * frameSampleCount + sampleIndex] + 1) / 2 *
-                             std::numeric_limits<PcmT>::max();
-            T sample = saturateOutput(scaledSample,
-                                      static_cast<T>(std::numeric_limits<PcmT>::min()),
-                                      static_cast<T>(std::numeric_limits<PcmT>::max()));
+            T scaledSample =
+                (input[channelIndex * frameSampleCount + sampleIndex] + 1) / 2 * std::numeric_limits<PcmT>::max();
+            T sample = saturateOutput(
+                scaledSample,
+                static_cast<T>(std::numeric_limits<PcmT>::min()),
+                static_cast<T>(std::numeric_limits<PcmT>::max()));
             output[i] = static_cast<PcmT>(round(sample));
         }
     }
 
     template<>
-    inline void ArrayToPcmConverter::arrayToUnsignedPcm<float, uint32_t>(const float* input, uint8_t* outputBytes,
-        std::size_t frameSampleCount, std::size_t channelCount)
+    inline void ArrayToPcmConverter::arrayToUnsignedPcm<float, uint32_t>(
+        const float* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
+        std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
 
@@ -199,17 +243,21 @@ namespace introlab
             std::size_t channelIndex = i % channelCount;
             std::size_t sampleIndex = i / channelCount;
 
-            double scaledSample = (input[channelIndex * frameSampleCount + sampleIndex] + 1) / 2 *
-                             std::numeric_limits<uint32_t>::max();
-            double sample = saturateOutput(scaledSample,
-                                      static_cast<double>(std::numeric_limits<uint32_t>::min()),
-                                      static_cast<double>(std::numeric_limits<uint32_t>::max()));
+            double scaledSample =
+                (input[channelIndex * frameSampleCount + sampleIndex] + 1) / 2 * std::numeric_limits<uint32_t>::max();
+            double sample = saturateOutput(
+                scaledSample,
+                static_cast<double>(std::numeric_limits<uint32_t>::min()),
+                static_cast<double>(std::numeric_limits<uint32_t>::max()));
             output[i] = static_cast<uint32_t>(round(sample));
         }
     }
 
     template<class T>
-    void ArrayToPcmConverter::arrayToUnsigned24Pcm(const T* input, uint8_t* output, std::size_t frameSampleCount,
+    void ArrayToPcmConverter::arrayToUnsigned24Pcm(
+        const T* input,
+        uint8_t* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         constexpr T Max = (1 << 24) - 1;
@@ -236,8 +284,11 @@ namespace introlab
     }
 
     template<class T>
-    void ArrayToPcmConverter::arrayToUnsignedPadded24Pcm(const T* input, uint8_t* outputBytes,
-        std::size_t frameSampleCount, std::size_t channelCount)
+    void ArrayToPcmConverter::arrayToUnsignedPadded24Pcm(
+        const T* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
+        std::size_t channelCount)
     {
         constexpr T Max = (1 << 24) - 1;
 
@@ -257,8 +308,11 @@ namespace introlab
     }
 
     template<class T, class PcmT>
-    void ArrayToPcmConverter::arrayToFloatingPointPcm(const T* input, uint8_t* outputBytes,
-        std::size_t frameSampleCount, std::size_t channelCount)
+    void ArrayToPcmConverter::arrayToFloatingPointPcm(
+        const T* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
+        std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
 
@@ -269,15 +323,21 @@ namespace introlab
             std::size_t channelIndex = i % channelCount;
             std::size_t sampleIndex = i / channelCount;
 
-            T sample = saturateOutput(input[channelIndex * frameSampleCount + sampleIndex], static_cast<T>(-1),
-                                      static_cast<T>(1));
+            T sample = saturateOutput(
+                input[channelIndex * frameSampleCount + sampleIndex],
+                static_cast<T>(-1),
+                static_cast<T>(1));
             output[i] = static_cast<PcmT>(sample);
         }
     }
 
     template<class T>
-    void ArrayToPcmConverter::convertArrayToPcm(const T* input, uint8_t* outputBytes, std::size_t frameSampleCount,
-        std::size_t channelCount, PcmAudioFrameFormat format)
+    void ArrayToPcmConverter::convertArrayToPcm(
+        const T* input,
+        uint8_t* outputBytes,
+        std::size_t frameSampleCount,
+        std::size_t channelCount,
+        PcmAudioFrameFormat format)
     {
         switch (format)
         {

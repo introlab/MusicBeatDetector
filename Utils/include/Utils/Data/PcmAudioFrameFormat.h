@@ -24,10 +24,7 @@ namespace introlab
         Double = 8 + 32
     };
 
-    inline std::size_t formatSize(PcmAudioFrameFormat format)
-    {
-        return static_cast<std::size_t>(format) & 0b1111;
-    }
+    inline std::size_t formatSize(PcmAudioFrameFormat format) { return static_cast<std::size_t>(format) & 0b1111; }
 
     inline std::size_t size(PcmAudioFrameFormat format, std::size_t channelCount, std::size_t sampleCount)
     {
