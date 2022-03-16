@@ -9,13 +9,13 @@ include_directories(../3rdParty/fftw/build/include)
 include_directories(include)
 
 file(GLOB_RECURSE
-    source_files
-    src/*
-    include/*)
+        source_files
+        src/*
+        include/*)
 
 add_library(Utils
-    STATIC
-    ${source_files})
+        STATIC
+        ${source_files})
 
 target_link_libraries(Utils
         ${openblas_LIBRARY}
@@ -29,4 +29,4 @@ assign_source_group(${source_files})
 
 if (MUSIC_BEAT_DETECTOR_ENABLE_TESTS)
     add_subdirectory(test)
-endif()
+endif ()

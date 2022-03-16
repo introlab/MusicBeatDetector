@@ -20,7 +20,7 @@ TEST(MathTests, hamming_shouldReturnTheHammingWindow)
 
 TEST(MathTests, fft_preallocatedMemory_shouldReturnTheFft)
 {
-    arma::cx_fvec x = arma::conv_to<arma::cx_fvec>::from(arma::fvec({ 2, 2, 2, 2 }));
+    arma::cx_fvec x = arma::conv_to<arma::cx_fvec>::from(arma::fvec({2, 2, 2, 2}));
     arma::cx_fvec y = arma::zeros<arma::cx_fvec>(x.n_elem);
 
     fft(x, y);
@@ -33,7 +33,7 @@ TEST(MathTests, fft_preallocatedMemory_shouldReturnTheFft)
 
 TEST(MathTests, fft_shouldReturnTheFft)
 {
-    arma::cx_fvec x = arma::conv_to<arma::cx_fvec>::from(arma::fvec({ 1, 1, 1 }));
+    arma::cx_fvec x = arma::conv_to<arma::cx_fvec>::from(arma::fvec({1, 1, 1}));
     arma::cx_fvec y;
 
     fft(x, y);
@@ -45,7 +45,7 @@ TEST(MathTests, fft_shouldReturnTheFft)
 
 TEST(MathTests, ifft_preallocatedMemory_shouldReturnTheIfft)
 {
-    arma::cx_fvec x({ complex<float>(8, 0), complex<float>(0, 0), complex<float>(0, 0), complex<float>(0, 0) });
+    arma::cx_fvec x({complex<float>(8, 0), complex<float>(0, 0), complex<float>(0, 0), complex<float>(0, 0)});
     arma::cx_fvec y = arma::zeros<arma::cx_fvec>(x.n_elem);
 
     ifft(x, y);
@@ -58,7 +58,7 @@ TEST(MathTests, ifft_preallocatedMemory_shouldReturnTheIfft)
 
 TEST(MathTests, ifft_shouldReturnTheIfft)
 {
-    arma::cx_fvec x({ complex<float>(3, 0), complex<float>(0, 0), complex<float>(0, 0) });
+    arma::cx_fvec x({complex<float>(3, 0), complex<float>(0, 0), complex<float>(0, 0)});
     arma::cx_fvec y;
 
     ifft(x, y);

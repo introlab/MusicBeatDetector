@@ -27,7 +27,8 @@ namespace introlab
         BeatClassifier m_beatClassifier;
 
     public:
-        MusicBeatDetector(float samplingFrequency,
+        MusicBeatDetector(
+            float samplingFrequency,
             std::size_t frameSampleCount = 128,
             std::size_t ossFttWindowSize = 1024,
             std::size_t fluxHammingSize = 15,

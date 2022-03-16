@@ -64,61 +64,31 @@ namespace introlab
     };
 
     template<class T>
-    PcmAudioFrame::PcmAudioFrame(const AudioFrame<T>& other, PcmAudioFrameFormat format) :
-        PcmAudioFrame(format, other.channelCount(), other.sampleCount())
+    PcmAudioFrame::PcmAudioFrame(const AudioFrame<T>& other, PcmAudioFrameFormat format)
+        : PcmAudioFrame(format, other.channelCount(), other.sampleCount())
     {
         ArrayToPcmConverter::convertArrayToPcm(other.data(), m_data, m_sampleCount, m_channelCount, m_format);
     }
 
-    inline PcmAudioFrameFormat PcmAudioFrame::format() const
-    {
-        return m_format;
-    }
+    inline PcmAudioFrameFormat PcmAudioFrame::format() const { return m_format; }
 
-    inline std::size_t PcmAudioFrame::channelCount() const
-    {
-        return m_channelCount;
-    }
+    inline std::size_t PcmAudioFrame::channelCount() const { return m_channelCount; }
 
-    inline std::size_t PcmAudioFrame::sampleCount() const
-    {
-        return m_sampleCount;
-    }
+    inline std::size_t PcmAudioFrame::sampleCount() const { return m_sampleCount; }
 
-    inline uint8_t* PcmAudioFrame::data()
-    {
-        return m_data;
-    }
+    inline uint8_t* PcmAudioFrame::data() { return m_data; }
 
-    inline const uint8_t* PcmAudioFrame::data() const
-    {
-        return m_data;
-    }
+    inline const uint8_t* PcmAudioFrame::data() const { return m_data; }
 
-    inline std::size_t PcmAudioFrame::size() const
-    {
-        return introlab::size(m_format, m_channelCount, m_sampleCount);
-    }
+    inline std::size_t PcmAudioFrame::size() const { return introlab::size(m_format, m_channelCount, m_sampleCount); }
 
-    inline bool PcmAudioFrame::hasOwnership() const
-    {
-        return m_hasOwnership;
-    }
+    inline bool PcmAudioFrame::hasOwnership() const { return m_hasOwnership; }
 
-    inline uint8_t& PcmAudioFrame::operator[](std::size_t i)
-    {
-        return m_data[i];
-    }
+    inline uint8_t& PcmAudioFrame::operator[](std::size_t i) { return m_data[i]; }
 
-    inline uint8_t PcmAudioFrame::operator[](std::size_t i) const
-    {
-        return m_data[i];
-    }
+    inline uint8_t PcmAudioFrame::operator[](std::size_t i) const { return m_data[i]; }
 
-    inline void PcmAudioFrame::clear()
-    {
-        std::memset(m_data, 0, size());
-    }
+    inline void PcmAudioFrame::clear() { std::memset(m_data, 0, size()); }
 
     inline PcmAudioFrame PcmAudioFrame::slice(size_t sampleIndex, size_t sampleCount)
     {

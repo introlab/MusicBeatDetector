@@ -15,19 +15,22 @@ CircularCrossCorrelationCalculator::CircularCrossCorrelationCalculator(size_t si
     m_c = arma::zeros<arma::cx_fvec>(size);
     m_C = arma::zeros<arma::cx_fvec>(size);
 
-    m_fftPlanA = fftwf_plan_dft_1d(m_a.n_elem,
+    m_fftPlanA = fftwf_plan_dft_1d(
+        m_a.n_elem,
         reinterpret_cast<fftwf_complex*>(m_a.memptr()),
         reinterpret_cast<fftwf_complex*>(m_A.memptr()),
         FFTW_FORWARD,
         FFTW_PATIENT);
 
-    m_fftPlanB = fftwf_plan_dft_1d(m_b.n_elem,
+    m_fftPlanB = fftwf_plan_dft_1d(
+        m_b.n_elem,
         reinterpret_cast<fftwf_complex*>(m_b.memptr()),
         reinterpret_cast<fftwf_complex*>(m_B.memptr()),
         FFTW_FORWARD,
         FFTW_PATIENT);
 
-    m_ifftPlan = fftwf_plan_dft_1d(m_c.n_elem,
+    m_ifftPlan = fftwf_plan_dft_1d(
+        m_c.n_elem,
         reinterpret_cast<fftwf_complex*>(m_C.memptr()),
         reinterpret_cast<fftwf_complex*>(m_c.memptr()),
         FFTW_BACKWARD,
@@ -61,17 +64,15 @@ arma::fvec CircularCrossCorrelationCalculator::calculate(const arma::fvec& a, co
     return fftShift(arma::real(m_c));
 }
 
-CrossCorrelationCalculator::CrossCorrelationCalculator(size_t size) :
-    m_size(size),
-    m_circularCrossCorrelationCalculator(2 * size - 1)
+CrossCorrelationCalculator::CrossCorrelationCalculator(size_t size)
+    : m_size(size),
+      m_circularCrossCorrelationCalculator(2 * size - 1)
 {
     m_a = arma::zeros<arma::fvec>(2 * size - 1);
     m_b = arma::zeros<arma::fvec>(2 * size - 1);
 }
 
-CrossCorrelationCalculator::~CrossCorrelationCalculator()
-{
-}
+CrossCorrelationCalculator::~CrossCorrelationCalculator() {}
 
 arma::fvec CrossCorrelationCalculator::calculate(const arma::fvec& a, const arma::fvec& b)
 {

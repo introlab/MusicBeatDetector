@@ -5,32 +5,39 @@
 using namespace introlab;
 using namespace std;
 
-PcmAudioFrame::PcmAudioFrame(PcmAudioFrameFormat format, size_t channelCount, size_t sampleCount) :
-    m_format(format), m_channelCount(channelCount), m_sampleCount(sampleCount), m_hasOwnership(true)
+PcmAudioFrame::PcmAudioFrame(PcmAudioFrameFormat format, size_t channelCount, size_t sampleCount)
+    : m_format(format),
+      m_channelCount(channelCount),
+      m_sampleCount(sampleCount),
+      m_hasOwnership(true)
 {
     m_data = new uint8_t[size()];
 }
 
-PcmAudioFrame::PcmAudioFrame(PcmAudioFrameFormat format, size_t channelCount, size_t sampleCount, uint8_t* data) :
-    m_format(format), m_channelCount(channelCount), m_sampleCount(sampleCount), m_data(data), m_hasOwnership(false)
+PcmAudioFrame::PcmAudioFrame(PcmAudioFrameFormat format, size_t channelCount, size_t sampleCount, uint8_t* data)
+    : m_format(format),
+      m_channelCount(channelCount),
+      m_sampleCount(sampleCount),
+      m_data(data),
+      m_hasOwnership(false)
 {
 }
 
-PcmAudioFrame::PcmAudioFrame(const PcmAudioFrame& other) :
-    m_format(other.m_format),
-    m_channelCount(other.m_channelCount),
-    m_sampleCount(other.m_sampleCount),
-    m_hasOwnership(true)
+PcmAudioFrame::PcmAudioFrame(const PcmAudioFrame& other)
+    : m_format(other.m_format),
+      m_channelCount(other.m_channelCount),
+      m_sampleCount(other.m_sampleCount),
+      m_hasOwnership(true)
 {
     m_data = new uint8_t[size()];
     memcpy(m_data, other.m_data, size());
 }
 
-PcmAudioFrame::PcmAudioFrame(PcmAudioFrame&& other) :
-    m_format(other.m_format),
-    m_channelCount(other.m_channelCount),
-    m_sampleCount(other.m_sampleCount),
-    m_hasOwnership(other.m_hasOwnership)
+PcmAudioFrame::PcmAudioFrame(PcmAudioFrame&& other)
+    : m_format(other.m_format),
+      m_channelCount(other.m_channelCount),
+      m_sampleCount(other.m_sampleCount),
+      m_hasOwnership(other.m_hasOwnership)
 {
     m_data = other.m_data;
 

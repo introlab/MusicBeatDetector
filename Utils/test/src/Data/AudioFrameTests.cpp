@@ -212,4 +212,3 @@ TEST(AudioFrameTests, moveAssignationOperator_ownershipFalse_shouldCopy)
     EXPECT_EQ(frame.sampleCount(), 0);
     EXPECT_EQ(frame.size(), 0);
 }
-

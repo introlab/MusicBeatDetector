@@ -14,41 +14,69 @@ namespace introlab
     class PcmToArrayConverter
     {
         template<class T, class PcmT>
-        static void signedPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void signedPcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void signed24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void signed24PcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void signedPadded24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void signedPadded24PcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T, class PcmT>
-        static void unsignedPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void unsignedPcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void unsigned24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void unsigned24PcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T>
-        static void unsignedPadded24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void unsignedPadded24PcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
         template<class T, class PcmT>
-        static void floatingPointPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+        static void floatingPointPcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
             std::size_t channelCount);
 
     public:
         template<class T>
-        static void convertPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
-            std::size_t channelCount, PcmAudioFrameFormat format);
+        static void convertPcmToArray(
+            const uint8_t* inputBytes,
+            T* output,
+            std::size_t frameSampleCount,
+            std::size_t channelCount,
+            PcmAudioFrameFormat format);
     };
 
     template<class T, class PcmT>
-    void PcmToArrayConverter::signedPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::signedPcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
@@ -66,7 +94,10 @@ namespace introlab
     }
 
     template<class T>
-    void PcmToArrayConverter::signed24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::signed24PcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
@@ -89,7 +120,10 @@ namespace introlab
     }
 
     template<class T>
-    void PcmToArrayConverter::signedPadded24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::signedPadded24PcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         constexpr T AbsMin = 1 << 23;
@@ -109,7 +143,10 @@ namespace introlab
     }
 
     template<class T, class PcmT>
-    void PcmToArrayConverter::unsignedPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::unsignedPcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
@@ -127,7 +164,10 @@ namespace introlab
     }
 
     template<class T>
-    void PcmToArrayConverter::unsigned24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::unsigned24PcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         constexpr T Max = (1 << 24) - 1;
@@ -150,7 +190,10 @@ namespace introlab
     }
 
     template<class T>
-    void PcmToArrayConverter::unsignedPadded24PcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::unsignedPadded24PcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         constexpr T Max = (1 << 24) - 1;
@@ -170,7 +213,10 @@ namespace introlab
     }
 
     template<class T, class PcmT>
-    void PcmToArrayConverter::floatingPointPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
+    void PcmToArrayConverter::floatingPointPcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
         std::size_t channelCount)
     {
         std::size_t n = frameSampleCount * channelCount;
@@ -187,8 +233,12 @@ namespace introlab
     }
 
     template<class T>
-    void PcmToArrayConverter::convertPcmToArray(const uint8_t* inputBytes, T* output, std::size_t frameSampleCount,
-        std::size_t channelCount, PcmAudioFrameFormat format)
+    void PcmToArrayConverter::convertPcmToArray(
+        const uint8_t* inputBytes,
+        T* output,
+        std::size_t frameSampleCount,
+        std::size_t channelCount,
+        PcmAudioFrameFormat format)
     {
         switch (format)
         {

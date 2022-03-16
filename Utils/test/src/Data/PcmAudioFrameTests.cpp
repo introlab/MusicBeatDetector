@@ -384,8 +384,10 @@ TEST(PcmAudioFrameTests, writeChannel_performance)
         chrono::duration<double> elapsedSeconds = end - start;
 
         totalElapsedTimeSeconds += elapsedSeconds.count();
-        minElapsedTimeSeconds = elapsedSeconds.count() < minElapsedTimeSeconds ? elapsedSeconds.count() : minElapsedTimeSeconds;
-        maxElapsedTimeSeconds = elapsedSeconds.count() > maxElapsedTimeSeconds ? elapsedSeconds.count() : maxElapsedTimeSeconds;
+        minElapsedTimeSeconds =
+            elapsedSeconds.count() < minElapsedTimeSeconds ? elapsedSeconds.count() : minElapsedTimeSeconds;
+        maxElapsedTimeSeconds =
+            elapsedSeconds.count() > maxElapsedTimeSeconds ? elapsedSeconds.count() : maxElapsedTimeSeconds;
     }
 
     cout << "Elapsed time (avg) = " << totalElapsedTimeSeconds / Count << " s" << endl;

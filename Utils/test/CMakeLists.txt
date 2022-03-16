@@ -12,20 +12,20 @@ include_directories(../include)
 include_directories(include)
 
 file(GLOB_RECURSE
-    source_files
-    src/*
-    include/*)
+        source_files
+        src/*
+        include/*)
 
 add_executable(UtilsTests
-    ${source_files})
+        ${source_files})
 
 set_property(TARGET UtilsTests PROPERTY CXX_STANDARD 14)
 
 target_link_libraries(UtilsTests
-    Utils
-    ${openblas_LIBRARY}
-    ${fftw_LIBRARY}
-    gtest
-    gmock)
+        Utils
+        ${openblas_LIBRARY}
+        ${fftw_LIBRARY}
+        gtest
+        gmock)
 
 assign_source_group(${source_files})

@@ -12,6 +12,7 @@ namespace introlab
     {
         int64_t m_currentIndex;
         std::vector<T> m_data;
+
     public:
         ShiftRegister(std::size_t size);
         ShiftRegister(std::initializer_list<T> values);
@@ -28,7 +29,8 @@ namespace introlab
     };
 
     template<class T>
-    ShiftRegister<T>::ShiftRegister(std::size_t size) : m_currentIndex(size - 1), m_data(size)
+    ShiftRegister<T>::ShiftRegister(std::size_t size) : m_currentIndex(size - 1),
+                                                        m_data(size)
     {
     }
 
@@ -39,14 +41,16 @@ namespace introlab
     }
 
     template<class T>
-    ShiftRegister<T>::ShiftRegister(const ShiftRegister& other) :
-        m_currentIndex(other.m_currentIndex), m_data(other.m_data)
+    ShiftRegister<T>::ShiftRegister(const ShiftRegister& other)
+        : m_currentIndex(other.m_currentIndex),
+          m_data(other.m_data)
     {
     }
 
     template<class T>
-    ShiftRegister<T>::ShiftRegister(ShiftRegister&& other) :
-        m_currentIndex(other.m_currentIndex), m_data(std::move(other.m_data))
+    ShiftRegister<T>::ShiftRegister(ShiftRegister&& other)
+        : m_currentIndex(other.m_currentIndex),
+          m_data(std::move(other.m_data))
     {
     }
 

@@ -16,7 +16,8 @@ TEST(BpmEstimatorTests, constructor_negativeMinBpm_range)
     constexpr float MaxBpm = 210.94;
     constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+    EXPECT_THROW(
+        BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
         NotSupportedException);
 }
 
@@ -28,7 +29,8 @@ TEST(BpmEstimatorTests, constructor_negativeMaxBpm_range)
     constexpr float MaxBpm = -210.94;
     constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+    EXPECT_THROW(
+        BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
         NotSupportedException);
 }
 
@@ -40,7 +42,8 @@ TEST(BpmEstimatorTests, constructor_invalidLagRange_range)
     constexpr float MaxBpm = 9;
     constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+    EXPECT_THROW(
+        BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
         NotSupportedException);
 }
 
@@ -52,7 +55,8 @@ TEST(BpmEstimatorTests, constructor_invalidCandidateCount_range)
     constexpr float MaxBpm = 9;
     constexpr size_t CandidateCount = 0;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+    EXPECT_THROW(
+        BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
         NotSupportedException);
 }
 
@@ -64,7 +68,8 @@ TEST(BpmEstimatorTests, constructor_invalidOssWindowSize_range)
     constexpr float MaxBpm = 9;
     constexpr size_t CandidateCount = 10;
 
-    EXPECT_THROW(BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
+    EXPECT_THROW(
+        BpmEstimator(OssSamplingFrequency, OssWindowSize, MinBpm, MaxBpm, CandidateCount),
         NotSupportedException);
 }
 

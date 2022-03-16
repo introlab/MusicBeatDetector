@@ -25,9 +25,10 @@ namespace introlab
         AudioFrame<float> m_frame;
 
     public:
-        OssCalculator(std::size_t frameSampleCount = 128,
-                      std::size_t ossWindowSize = 1024,
-                      std::size_t fluxHammingSize = 15);
+        OssCalculator(
+            std::size_t frameSampleCount = 128,
+            std::size_t ossWindowSize = 1024,
+            std::size_t fluxHammingSize = 15);
         virtual ~OssCalculator();
 
         DECLARE_NOT_COPYABLE(OssCalculator);

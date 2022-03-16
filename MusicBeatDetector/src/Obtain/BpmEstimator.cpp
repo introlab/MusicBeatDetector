@@ -10,14 +10,15 @@
 using namespace introlab;
 using namespace std;
 
-BpmEstimator::BpmEstimator(float ossSamplingFrequency,
-                           size_t ossWindowSize,
-                           float minBpm,
-                           float maxBpm,
-                           size_t candidateCount) :
-    m_ossSamplingFrequency(ossSamplingFrequency),
-    m_crossCorrelationCalculator(ossWindowSize),
-    m_candidateCount(candidateCount)
+BpmEstimator::BpmEstimator(
+    float ossSamplingFrequency,
+    size_t ossWindowSize,
+    float minBpm,
+    float maxBpm,
+    size_t candidateCount)
+    : m_ossSamplingFrequency(ossSamplingFrequency),
+      m_crossCorrelationCalculator(ossWindowSize),
+      m_candidateCount(candidateCount)
 {
     if (minBpm <= 0 || maxBpm <= 0)
     {
@@ -42,9 +43,7 @@ BpmEstimator::BpmEstimator(float ossSamplingFrequency,
     m_oss = arma::zeros<arma::fvec>(ossWindowSize);
 }
 
-BpmEstimator::~BpmEstimator()
-{
-}
+BpmEstimator::~BpmEstimator() {}
 
 float BpmEstimator::estimate(float oss)
 {

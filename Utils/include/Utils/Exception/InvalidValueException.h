@@ -3,7 +3,7 @@
 
 #include <Utils/Exception/LoggedException.h>
 
-#define THROW_INVALID_VALUE_EXCEPTION(key, value) \
+#define THROW_INVALID_VALUE_EXCEPTION(key, value)                                                                      \
     throw introlab::InvalidValueException(__FILENAME__, __LOGGED_FUNCTION__, __LINE__, (key), (value))
 
 namespace introlab
@@ -11,7 +11,8 @@ namespace introlab
     class InvalidValueException : public LoggedException
     {
     public:
-        InvalidValueException(const std::string& filename,
+        InvalidValueException(
+            const std::string& filename,
             const std::string& function,
             int line,
             const std::string& name,

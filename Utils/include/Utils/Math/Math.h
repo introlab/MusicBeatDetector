@@ -23,7 +23,8 @@ namespace introlab
             y = arma::zeros<arma::cx_fvec>(x.n_elem);
         }
 
-        fftwf_plan plan = fftwf_plan_dft_1d(x.n_elem,
+        fftwf_plan plan = fftwf_plan_dft_1d(
+            x.n_elem,
             reinterpret_cast<fftwf_complex*>(x.memptr()),
             reinterpret_cast<fftwf_complex*>(y.memptr()),
             FFTW_FORWARD,
@@ -39,7 +40,8 @@ namespace introlab
             y = arma::zeros<arma::cx_fvec>(x.n_elem);
         }
 
-        fftwf_plan plan = fftwf_plan_dft_1d(x.n_elem,
+        fftwf_plan plan = fftwf_plan_dft_1d(
+            x.n_elem,
             reinterpret_cast<fftwf_complex*>(x.memptr()),
             reinterpret_cast<fftwf_complex*>(y.memptr()),
             FFTW_BACKWARD,
@@ -50,10 +52,7 @@ namespace introlab
         y /= y.n_elem;
     }
 
-    inline arma::fvec fftShift(const arma::fvec& a)
-    {
-        return arma::shift(a, a.n_elem / 2);
-    }
+    inline arma::fvec fftShift(const arma::fvec& a) { return arma::shift(a, a.n_elem / 2); }
 
     inline arma::fvec crossCorrelation(const arma::fvec& a, const arma::fvec& b)
     {

@@ -5,24 +5,23 @@
 using namespace introlab;
 
 
-MusicBeatDetector::MusicBeatDetector(float samplingFrequency,
+MusicBeatDetector::MusicBeatDetector(
+    float samplingFrequency,
     size_t frameSampleCount,
     size_t ossFttWindowSize,
     size_t fluxHammingSize,
     size_t ossBpmWindowSize,
     float minBpm,
     float maxBpm,
-    size_t bpmCandidateCount) :
-    m_ossCalculator(frameSampleCount, ossFttWindowSize, fluxHammingSize),
-    m_bpmEstimator(samplingFrequency / frameSampleCount, ossBpmWindowSize, minBpm, maxBpm, bpmCandidateCount),
-    m_cbssCalculator(samplingFrequency / frameSampleCount, minBpm),
-    m_beatClassifier(samplingFrequency / frameSampleCount, minBpm)
+    size_t bpmCandidateCount)
+    : m_ossCalculator(frameSampleCount, ossFttWindowSize, fluxHammingSize),
+      m_bpmEstimator(samplingFrequency / frameSampleCount, ossBpmWindowSize, minBpm, maxBpm, bpmCandidateCount),
+      m_cbssCalculator(samplingFrequency / frameSampleCount, minBpm),
+      m_beatClassifier(samplingFrequency / frameSampleCount, minBpm)
 {
 }
 
-MusicBeatDetector::~MusicBeatDetector()
-{
-}
+MusicBeatDetector::~MusicBeatDetector() {}
 
 Beat MusicBeatDetector::detect(const PcmAudioFrame& frame)
 {
