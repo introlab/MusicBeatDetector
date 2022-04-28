@@ -189,7 +189,7 @@ TEST(PcmAudioFrameTests, assignationOperator_shouldCopy)
     }
 }
 
-TEST(PcmAudioFrameTests, assignationOperator_sameType_shouldCopyWithoutMemoryAllocation)
+TEST(PcmAudioFrameTests, assignationOperator_same_shouldCopyWithoutMemoryAllocation)
 {
     PcmAudioFrame frame(PcmAudioFrameFormat::Signed16, ChannelCount, SampleCount);
     for (size_t i = 0; i < frame.size(); i++)
@@ -274,6 +274,68 @@ TEST(PcmAudioFrameTests, moveAssignationOperator_ownershipFalse_shouldMove)
     EXPECT_EQ(frame.channelCount(), 0);
     EXPECT_EQ(frame.sampleCount(), 0);
     EXPECT_EQ(frame.size(), 0);
+}
+
+TEST(PcmAudioFrameTests, assignationOperator_audioFrame_shouldCopy)
+{
+    AudioFrame<float> frame(ChannelCount, SampleCount);
+
+    frame[0] = -1;
+    frame[1] = 1;
+    frame[2] = -0.5;
+
+    frame[3] = 0;
+    frame[4] = 0.5;
+    frame[5] = 0.25;
+
+    PcmAudioFrame pcmFrame(PcmAudioFrameFormat::Unsigned8, 200, 300);
+    uint8_t* oldPcmDataBuffer = pcmFrame.data();
+    pcmFrame = frame;
+
+    EXPECT_NE(oldPcmDataBuffer, pcmFrame.data());
+    EXPECT_EQ(pcmFrame.format(), PcmAudioFrameFormat::Unsigned8);
+    EXPECT_EQ(pcmFrame.channelCount(), ChannelCount);
+    EXPECT_EQ(pcmFrame.sampleCount(), SampleCount);
+    EXPECT_EQ(pcmFrame.size(), 6);
+    EXPECT_TRUE(pcmFrame.hasOwnership());
+
+    EXPECT_EQ(pcmFrame[0], 0);
+    EXPECT_EQ(pcmFrame[1], 128);
+    EXPECT_EQ(pcmFrame[2], 255);
+    EXPECT_EQ(pcmFrame[3], 191);
+    EXPECT_EQ(pcmFrame[4], 64);
+    EXPECT_EQ(pcmFrame[5], 159);
+}
+
+TEST(PcmAudioFrameTests, assignationOperator_sameAudioFrame_shouldCopyWithoutMemoryAllocation)
+{
+    AudioFrame<float> frame(ChannelCount, SampleCount);
+
+    frame[0] = -1;
+    frame[1] = 1;
+    frame[2] = -0.5;
+
+    frame[3] = 0;
+    frame[4] = 0.5;
+    frame[5] = 0.25;
+
+    PcmAudioFrame pcmFrame(PcmAudioFrameFormat::Unsigned8, ChannelCount, SampleCount);
+    uint8_t* oldPcmDataBuffer = pcmFrame.data();
+    pcmFrame = frame;
+
+    EXPECT_EQ(oldPcmDataBuffer, pcmFrame.data());
+    EXPECT_EQ(pcmFrame.format(), PcmAudioFrameFormat::Unsigned8);
+    EXPECT_EQ(pcmFrame.channelCount(), ChannelCount);
+    EXPECT_EQ(pcmFrame.sampleCount(), SampleCount);
+    EXPECT_EQ(pcmFrame.size(), 6);
+    EXPECT_TRUE(pcmFrame.hasOwnership());
+
+    EXPECT_EQ(pcmFrame[0], 0);
+    EXPECT_EQ(pcmFrame[1], 128);
+    EXPECT_EQ(pcmFrame[2], 255);
+    EXPECT_EQ(pcmFrame[3], 191);
+    EXPECT_EQ(pcmFrame[4], 64);
+    EXPECT_EQ(pcmFrame[5], 159);
 }
 
 TEST(PcmAudioFrameTests, clear_shouldSetAllBytesTo0)
@@ -419,6 +481,64 @@ TEST(PcmAudioFrameTests, audioFrameConversionOperator_shouldConvertTheFrame)
     EXPECT_NEAR(convertedFrame[3], 0, MaxAbsError);
     EXPECT_NEAR(convertedFrame[4], 0.5, MaxAbsError);
     EXPECT_NEAR(convertedFrame[5], 0.25, MaxAbsError);
+}
+
+TEST(PcmAudioFrameTests, copyTo_audioFrame_shouldCopy)
+{
+    constexpr float MaxAbsError = 0.1;
+    PcmAudioFrame pcmFrame(PcmAudioFrameFormat::Unsigned8, ChannelCount, SampleCount);
+
+    pcmFrame[0] = 0;
+    pcmFrame[1] = 128;
+    pcmFrame[2] = 255;
+    pcmFrame[3] = 191;
+    pcmFrame[4] = 64;
+    pcmFrame[5] = 159;
+
+    AudioFrame<float> frame(200, 300);
+    float* oldDataBuffer = frame.data();
+    pcmFrame.copyTo(frame);
+
+    EXPECT_NE(oldDataBuffer, frame.data());
+    ASSERT_EQ(frame.size(), 6);
+    EXPECT_TRUE(frame.hasOwnership());
+
+    EXPECT_NEAR(frame[0], -1, MaxAbsError);
+    EXPECT_NEAR(frame[1], 1, MaxAbsError);
+    EXPECT_NEAR(frame[2], -0.5, MaxAbsError);
+
+    EXPECT_NEAR(frame[3], 0, MaxAbsError);
+    EXPECT_NEAR(frame[4], 0.5, MaxAbsError);
+    EXPECT_NEAR(frame[5], 0.25, MaxAbsError);
+}
+
+TEST(PcmAudioFrameTests, copyTo_sameAudioFrame_shouldCopy)
+{
+    constexpr float MaxAbsError = 0.1;
+    PcmAudioFrame pcmFrame(PcmAudioFrameFormat::Unsigned8, ChannelCount, SampleCount);
+
+    pcmFrame[0] = 0;
+    pcmFrame[1] = 128;
+    pcmFrame[2] = 255;
+    pcmFrame[3] = 191;
+    pcmFrame[4] = 64;
+    pcmFrame[5] = 159;
+
+    AudioFrame<float> frame(ChannelCount, SampleCount);
+    float* oldDataBuffer = frame.data();
+    pcmFrame.copyTo(frame);
+
+    EXPECT_EQ(oldDataBuffer, frame.data());
+    ASSERT_EQ(frame.size(), 6);
+    EXPECT_TRUE(frame.hasOwnership());
+
+    EXPECT_NEAR(frame[0], -1, MaxAbsError);
+    EXPECT_NEAR(frame[1], 1, MaxAbsError);
+    EXPECT_NEAR(frame[2], -0.5, MaxAbsError);
+
+    EXPECT_NEAR(frame[3], 0, MaxAbsError);
+    EXPECT_NEAR(frame[4], 0.5, MaxAbsError);
+    EXPECT_NEAR(frame[5], 0.25, MaxAbsError);
 }
 
 TEST(PcmAudioFrameTests, extractionOperator_shouldExtractDataFromTheStream)
