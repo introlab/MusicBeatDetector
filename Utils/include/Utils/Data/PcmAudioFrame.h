@@ -49,6 +49,9 @@ namespace introlab
         PcmAudioFrame& operator=(const PcmAudioFrame& other);
         PcmAudioFrame& operator=(PcmAudioFrame&& other);
 
+        template<class T>
+        PcmAudioFrame& operator=(const AudioFrame<T>& other);
+
         uint8_t& operator[](std::size_t i);
         uint8_t operator[](std::size_t i) const;
 
@@ -58,6 +61,8 @@ namespace introlab
 
         template<class T>
         operator AudioFrame<T>() const;
+        template<class T>
+        void copyTo(AudioFrame<T>& other) const;
 
         friend std::istream& operator>>(std::istream& stream, PcmAudioFrame& frame);
         friend std::ostream& operator<<(std::ostream& stream, const PcmAudioFrame& frame);
@@ -84,6 +89,27 @@ namespace introlab
 
     inline bool PcmAudioFrame::hasOwnership() const { return m_hasOwnership; }
 
+    template<class T>
+    inline PcmAudioFrame& PcmAudioFrame::operator=(const AudioFrame<T>& other)
+    {
+        if (m_channelCount != other.channelCount() || m_sampleCount != other.sampleCount())
+        {
+            if (m_data != nullptr && m_hasOwnership)
+            {
+                delete[] m_data;
+            }
+
+            m_channelCount = other.channelCount();
+            m_sampleCount = other.sampleCount();
+            m_hasOwnership = true;
+
+            m_data = new uint8_t[size()];
+        }
+        ArrayToPcmConverter::convertArrayToPcm(other.data(), m_data, m_sampleCount, m_channelCount, m_format);
+
+        return *this;
+    }
+
     inline uint8_t& PcmAudioFrame::operator[](std::size_t i) { return m_data[i]; }
 
     inline uint8_t PcmAudioFrame::operator[](std::size_t i) const { return m_data[i]; }
@@ -102,6 +128,19 @@ namespace introlab
         AudioFrame<T> convertedFrame(m_channelCount, m_sampleCount);
         PcmToArrayConverter::convertPcmToArray(m_data, convertedFrame.data(), m_sampleCount, m_channelCount, m_format);
         return convertedFrame;
+    }
+
+    template<class T>
+    void PcmAudioFrame::copyTo(AudioFrame<T>& other) const
+    {
+        if (m_channelCount != other.channelCount() || m_sampleCount != other.sampleCount())
+        {
+            other = *this;
+        }
+        else
+        {
+            PcmToArrayConverter::convertPcmToArray(m_data, other.data(), m_sampleCount, m_channelCount, m_format);
+        }
     }
 
     inline std::istream& operator>>(std::istream& stream, PcmAudioFrame& frame)
