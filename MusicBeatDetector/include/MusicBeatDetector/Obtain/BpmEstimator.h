@@ -1,8 +1,8 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_TEMPO_ESTIMATOR_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_TEMPO_ESTIMATOR_H
 
-#include <Utils/ClassMacro.h>
-#include <Utils/Math/CrossCorrelationCalculator.h>
+#include <MusicBeatDetector/Utils/ClassMacro.h>
+#include <MusicBeatDetector/Utils/Math/CrossCorrelationCalculator.h>
 
 #include <armadillo>
 

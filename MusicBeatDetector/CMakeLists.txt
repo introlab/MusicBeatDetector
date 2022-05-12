@@ -19,7 +19,6 @@ add_library(MusicBeatDetector
         ${source_files})
 
 target_link_libraries(MusicBeatDetector
-        Utils
         ${openblas_LIBRARY}
         ${fftw_LIBRARY}
         gfortran)

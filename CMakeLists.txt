@@ -44,7 +44,6 @@ endfunction(assign_source_group)
 add_subdirectory(3rdParty)
 add_definitions(-DARMA_DONT_USE_WRAPPER)
 
-add_subdirectory(Utils)
 add_subdirectory(MusicBeatDetector)
 
 if (MUSIC_BEAT_DERECTOR_ENABLE_TESTS)
