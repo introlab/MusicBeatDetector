@@ -3,7 +3,7 @@
 #include <MusicBeatDetector/Obtain/CbssCalculator.h>
 #include <MusicBeatDetector/Obtain/BeatClassifier.h>
 
-#include <Utils/Exception/NotSupportedException.h>
+#include <MusicBeatDetector/Utils/Exception/NotSupportedException.h>
 
 #include <gtest/gtest.h>
 

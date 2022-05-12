@@ -1,7 +1,7 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_CBSS_CALCULATOR_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_CBSS_CALCULATOR_H
 
-#include <Utils/ClassMacro.h>
+#include <MusicBeatDetector/Utils/ClassMacro.h>
 
 #include <armadillo>
 

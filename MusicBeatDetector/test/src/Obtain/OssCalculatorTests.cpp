@@ -1,6 +1,6 @@
 #include <MusicBeatDetector/Obtain/OssCalculator.h>
 
-#include <Utils/Exception/NotSupportedException.h>
+#include <MusicBeatDetector/Utils/Exception/NotSupportedException.h>
 
 #include <gtest/gtest.h>
 

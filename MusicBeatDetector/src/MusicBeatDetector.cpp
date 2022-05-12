@@ -1,6 +1,6 @@
 #include <MusicBeatDetector/MusicBeatDetector.h>
 
-#include <Utils/Math/Math.h>
+#include <MusicBeatDetector/Utils/Math/Math.h>
 
 using namespace introlab;
 

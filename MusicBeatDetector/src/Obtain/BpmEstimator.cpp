@@ -1,8 +1,7 @@
 #include <MusicBeatDetector/Obtain/BpmEstimator.h>
 
-#include <Utils/Exception/NotSupportedException.h>
-
-#include <Utils/Math/Math.h>
+#include <MusicBeatDetector/Utils/Exception/NotSupportedException.h>
+#include <MusicBeatDetector/Utils/Math/Math.h>
 
 #include <chrono>
 #include <limits>

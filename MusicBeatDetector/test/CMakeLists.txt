@@ -25,7 +25,6 @@ add_executable(MusicBeatDetectorTests
 
 target_link_libraries(MusicBeatDetectorTests
         MusicBeatDetector
-        Utils
         ${openblas_LIBRARY}
         ${fftw_LIBRARY}
         gtest

@@ -1,10 +1,10 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_OSS_CALCULATOR_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_OSS_CALCULATOR_H
 
-#include <Utils/ClassMacro.h>
-#include <Utils/Data/PcmAudioFrame.h>
-#include <Utils/Data/AudioFrame.h>
-#include <Utils/Data/ShiftRegister.h>
+#include <MusicBeatDetector/Utils/ClassMacro.h>
+#include <MusicBeatDetector/Utils/Data/PcmAudioFrame.h>
+#include <MusicBeatDetector/Utils/Data/AudioFrame.h>
+#include <MusicBeatDetector/Utils/Data/ShiftRegister.h>
 
 #include <armadillo>
 

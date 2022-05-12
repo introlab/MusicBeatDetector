@@ -6,7 +6,7 @@
 #include <MusicBeatDetector/Obtain/CbssCalculator.h>
 #include <MusicBeatDetector/Obtain/BeatClassifier.h>
 
-#include <Utils/ClassMacro.h>
+#include <MusicBeatDetector/Utils/ClassMacro.h>
 
 namespace introlab
 {

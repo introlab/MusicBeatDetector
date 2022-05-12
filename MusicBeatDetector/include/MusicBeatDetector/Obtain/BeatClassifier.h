@@ -1,7 +1,7 @@
 #ifndef MUSIC_BEAT_DETECTOR_OBTAIN_BEAT_CLASSIFIER_H
 #define MUSIC_BEAT_DETECTOR_OBTAIN_BEAT_CLASSIFIER_H
 
-#include <Utils/ClassMacro.h>
+#include <MusicBeatDetector/Utils/ClassMacro.h>
 
 #include <armadillo>
 

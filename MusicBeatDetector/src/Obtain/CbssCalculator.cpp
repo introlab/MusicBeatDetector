@@ -1,6 +1,6 @@
 #include <MusicBeatDetector/Obtain/CbssCalculator.h>
 
-#include <Utils/Exception/NotSupportedException.h>
+#include <MusicBeatDetector/Utils/Exception/NotSupportedException.h>
 
 using namespace introlab;
 using namespace std;
