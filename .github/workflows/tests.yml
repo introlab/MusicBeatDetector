@@ -38,10 +38,6 @@ jobs:
       working-directory: build
       run: make
 
-    - name: Run UtilsTests
-      working-directory: build/Utils/test
-      run: ./UtilsTests
-
     - name: Run MusicBeatDetectorTests
       working-directory: build/MusicBeatDetector/test
       run: ./MusicBeatDetectorTests
