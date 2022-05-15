@@ -95,12 +95,6 @@ TEST_P(CrossCorrelationCalculatorTestsP, crossCorrelation_frequency_shouldReturn
     arma::fvec c = calculator.calculate(a, b);
     arma::fvec expectedC = arma::conv(a, arma::reverse(b));
 
-    cout << "c.n_elem=" << c.n_elem << endl;
-    cout << "expectedC.n_elem=" << expectedC.n_elem << endl;
-
-    cout << "c=" << c.t() << endl;
-    cout << "expectedC=" << expectedC.t() << endl;
-
     for (size_t i = 0; i < a.n_elem; i++)
     {
         EXPECT_NEAR(c(i), expectedC(i), AbsError);
