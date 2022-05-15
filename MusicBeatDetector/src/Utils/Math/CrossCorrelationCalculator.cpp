@@ -8,32 +8,33 @@ using namespace std;
 
 CircularCrossCorrelationCalculator::CircularCrossCorrelationCalculator(size_t size)
 {
-    m_a = arma::zeros<arma::cx_fvec>(size);
-    m_A = arma::zeros<arma::cx_fvec>(size);
-    m_b = arma::zeros<arma::cx_fvec>(size);
-    m_B = arma::zeros<arma::cx_fvec>(size);
-    m_c = arma::zeros<arma::cx_fvec>(size);
-    m_C = arma::zeros<arma::cx_fvec>(size);
+    if (size == 0)
+    {
+        THROW_NOT_SUPPORTED_EXCEPTION("The size must be greater than 0.");
+    }
 
-    m_fftPlanA = fftwf_plan_dft_1d(
-        m_a.n_elem,
-        reinterpret_cast<fftwf_complex*>(m_a.memptr()),
+    m_a.zeros(size);
+    m_A.zeros(size / 2 + 1);
+    m_b.zeros(size);
+    m_B.zeros(m_A.n_elem);
+    m_c.zeros(size);
+    m_C.zeros(m_A.n_elem);
+
+    m_fftPlanA = fftwf_plan_dft_r2c_1d(
+        static_cast<int>(size),
+        m_a.memptr(),
         reinterpret_cast<fftwf_complex*>(m_A.memptr()),
-        FFTW_FORWARD,
         FFTW_PATIENT);
-
-    m_fftPlanB = fftwf_plan_dft_1d(
-        m_b.n_elem,
-        reinterpret_cast<fftwf_complex*>(m_b.memptr()),
+    m_fftPlanB = fftwf_plan_dft_r2c_1d(
+        static_cast<int>(size),
+        m_b.memptr(),
         reinterpret_cast<fftwf_complex*>(m_B.memptr()),
-        FFTW_FORWARD,
         FFTW_PATIENT);
 
-    m_ifftPlan = fftwf_plan_dft_1d(
-        m_c.n_elem,
+    m_ifftPlan = fftwf_plan_dft_c2r_1d(
+        static_cast<int>(size),
         reinterpret_cast<fftwf_complex*>(m_C.memptr()),
-        reinterpret_cast<fftwf_complex*>(m_c.memptr()),
-        FFTW_BACKWARD,
+        m_c.memptr(),
         FFTW_PATIENT);
 }
 
@@ -51,44 +52,50 @@ arma::fvec CircularCrossCorrelationCalculator::calculate(const arma::fvec& a, co
         THROW_NOT_SUPPORTED_EXCEPTION("a and b size must be equal to the size specified in the constructor");
     }
 
-    m_a(arma::span(0, m_a.n_elem - 1)) = arma::conv_to<arma::cx_fvec>::from(a);
-    m_b(arma::span(0, m_b.n_elem - 1)) = arma::conv_to<arma::cx_fvec>::from(b);
+    m_a = a;
+    m_b = b;
 
+    return calculate();
+}
+
+arma::fvec CircularCrossCorrelationCalculator::calculate()
+{
     fftwf_execute(m_fftPlanA);
     fftwf_execute(m_fftPlanB);
 
     m_C = m_A % arma::conj(m_B);
     fftwf_execute(m_ifftPlan);
-    m_c /= m_c.n_elem;
+    m_c /= static_cast<float>(m_c.n_elem);
 
-    return fftShift(arma::real(m_c));
+    return fftShift(m_c);
 }
 
 CrossCorrelationCalculator::CrossCorrelationCalculator(size_t size)
     : m_size(size),
-      m_circularCrossCorrelationCalculator(2 * size - 1)
+      m_circularCrossCorrelationSize(nextPower(2 * size - 1, static_cast<size_t>(2))),
+      m_circularCrossCorrelationCalculator(m_circularCrossCorrelationSize)
 {
-    m_a = arma::zeros<arma::fvec>(2 * size - 1);
-    m_b = arma::zeros<arma::fvec>(2 * size - 1);
 }
 
 CrossCorrelationCalculator::~CrossCorrelationCalculator() {}
 
 arma::fvec CrossCorrelationCalculator::calculate(const arma::fvec& a, const arma::fvec& b)
 {
-    constexpr size_t MAX_TEMPORAL_SIZE = 1024;
+    constexpr size_t MaxTemporalSize = 31;
 
     if (a.n_elem != m_size || b.n_elem != m_size)
     {
         THROW_NOT_SUPPORTED_EXCEPTION("a and b size must be equal to the size specified in the constructor");
     }
-    if (m_size <= MAX_TEMPORAL_SIZE)
+    if (m_size <= MaxTemporalSize)
     {
         return arma::conv(a, arma::reverse(b));
     }
 
-    m_a(arma::span(0, m_size - 1)) = a;
-    m_b(arma::span(0, m_size - 1)) = b;
+    size_t resultSize = 2 * m_size - 1;
+    size_t offset = (m_circularCrossCorrelationSize - resultSize) / 2 + 1;
 
-    return m_circularCrossCorrelationCalculator.calculate(m_a, m_b);
+    m_circularCrossCorrelationCalculator.m_a(arma::span(0, m_size - 1)) = a;
+    m_circularCrossCorrelationCalculator.m_b(arma::span(0, m_size - 1)) = b;
+    return m_circularCrossCorrelationCalculator.calculate()(arma::span(offset, offset + resultSize - 1));
 }
