@@ -8,13 +8,15 @@
 
 namespace introlab
 {
+    class CrossCorrelationCalculator;
+
     class CircularCrossCorrelationCalculator
     {
-        arma::cx_fvec m_a;
+        arma::fvec m_a;
         arma::cx_fvec m_A;
-        arma::cx_fvec m_b;
+        arma::fvec m_b;
         arma::cx_fvec m_B;
-        arma::cx_fvec m_c;
+        arma::fvec m_c;
         arma::cx_fvec m_C;
 
         fftwf_plan m_fftPlanA;
@@ -26,13 +28,17 @@ namespace introlab
         virtual ~CircularCrossCorrelationCalculator();
 
         arma::fvec calculate(const arma::fvec& a, const arma::fvec& b);
+
+    private:
+        arma::fvec calculate();
+
+        friend CrossCorrelationCalculator;
     };
 
     class CrossCorrelationCalculator
     {
         std::size_t m_size;
-        arma::fvec m_a;
-        arma::fvec m_b;
+        std::size_t m_circularCrossCorrelationSize;
         CircularCrossCorrelationCalculator m_circularCrossCorrelationCalculator;
 
     public:
@@ -41,6 +47,23 @@ namespace introlab
 
         arma::fvec calculate(const arma::fvec& a, const arma::fvec& b);
     };
+
+    template<class T>
+    T nextPower(T v, T p)
+    {
+        if (v == 0)
+        {
+            return 0;
+        }
+
+        T power = 1;
+        while (power < v)
+        {
+            power *= p;
+        }
+
+        return power;
+    }
 }
 
 #endif
