@@ -83,7 +83,7 @@ class CrossCorrelationCalculatorTestsP : public ::testing::TestWithParam<size_t>
 
 TEST_P(CrossCorrelationCalculatorTestsP, crossCorrelation_frequency_shouldReturnTheCrossCorrelation)
 {
-    constexpr float AbsError = 0.005;
+    constexpr float AbsError = 0.01;
 
     size_t size = GetParam();
     arma::fvec a = arma::regspace<arma::fvec>(0, static_cast<float>(size) - 1);
