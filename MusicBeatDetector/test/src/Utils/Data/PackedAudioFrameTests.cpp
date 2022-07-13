@@ -1,4 +1,4 @@
-#include <MusicBeatDetector/Utils/Data/AudioFrame.h>
+#include <MusicBeatDetector/Utils/Data/PackedAudioFrame.h>
 
 #include <gtest/gtest.h>
 
@@ -9,9 +9,9 @@ static constexpr std::size_t ChannelCount = 2;
 static constexpr std::size_t SampleCount = 3;
 static constexpr std::size_t FrameSize = ChannelCount * SampleCount;
 
-TEST(AudioFrameTests, construtor_shouldSetParameterAndAllocateMemory)
+TEST(PackedAudioFrameTests, construtor_shouldSetParameterAndAllocateMemory)
 {
-    AudioFrame<int> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount);
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
@@ -29,10 +29,10 @@ TEST(AudioFrameTests, construtor_shouldSetParameterAndAllocateMemory)
     }
 }
 
-TEST(AudioFrameTests, construtor_noCopy_shouldSetParameter)
+TEST(PackedAudioFrameTests, construtor_noCopy_shouldSetParameter)
 {
     vector<int> dataVector(ChannelCount * SampleCount);
-    AudioFrame<int> frame(ChannelCount, SampleCount, dataVector.data());
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount, dataVector.data());
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
@@ -51,15 +51,15 @@ TEST(AudioFrameTests, construtor_noCopy_shouldSetParameter)
     }
 }
 
-TEST(AudioFrameTests, copyConstrutor_shouldCopy)
+TEST(PackedAudioFrameTests, copyConstrutor_shouldCopy)
 {
-    AudioFrame<int> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount);
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
     }
 
-    AudioFrame<int> copy(frame);
+    PackedAudioFrame<int> copy(frame);
 
     EXPECT_EQ(copy.channelCount(), ChannelCount);
     EXPECT_EQ(copy.sampleCount(), SampleCount);
@@ -73,16 +73,16 @@ TEST(AudioFrameTests, copyConstrutor_shouldCopy)
     }
 }
 
-TEST(AudioFrameTests, moveConstructor_shouldMove)
+TEST(PackedAudioFrameTests, moveConstructor_shouldMove)
 {
-    AudioFrame<int> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount);
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
     }
 
     int* data = frame.data();
-    AudioFrame<int> movedFrame(move(frame));
+    PackedAudioFrame<int> movedFrame(move(frame));
 
     EXPECT_EQ(movedFrame.channelCount(), ChannelCount);
     EXPECT_EQ(movedFrame.sampleCount(), SampleCount);
@@ -101,17 +101,17 @@ TEST(AudioFrameTests, moveConstructor_shouldMove)
     EXPECT_EQ(frame.size(), 0);
 }
 
-TEST(AudioFrameTests, moveConstructor_ownershipFalse_shouldMove)
+TEST(PackedAudioFrameTests, moveConstructor_ownershipFalse_shouldMove)
 {
     vector<int> dataVector(ChannelCount * SampleCount);
-    AudioFrame<int> frame(ChannelCount, SampleCount, dataVector.data());
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount, dataVector.data());
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
     }
 
     int* data = frame.data();
-    AudioFrame<int> movedFrame(move(frame));
+    PackedAudioFrame<int> movedFrame(move(frame));
 
     EXPECT_EQ(movedFrame.channelCount(), ChannelCount);
     EXPECT_EQ(movedFrame.sampleCount(), SampleCount);
@@ -130,15 +130,15 @@ TEST(AudioFrameTests, moveConstructor_ownershipFalse_shouldMove)
     EXPECT_EQ(frame.size(), 0);
 }
 
-TEST(AudioFrameTests, assignationOperator_shouldCopy)
+TEST(PackedAudioFrameTests, assignationOperator_shouldCopy)
 {
-    AudioFrame<int> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount);
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
     }
 
-    AudioFrame<int> copy(1, 1);
+    PackedAudioFrame<int> copy(1, 1);
     copy = frame;
 
     EXPECT_EQ(copy.channelCount(), ChannelCount);
@@ -154,16 +154,16 @@ TEST(AudioFrameTests, assignationOperator_shouldCopy)
     }
 }
 
-TEST(AudioFrameTests, moveAssignationOperator_shouldMove)
+TEST(PackedAudioFrameTests, moveAssignationOperator_shouldMove)
 {
-    AudioFrame<int> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount);
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
     }
 
     int* data = frame.data();
-    AudioFrame<int> movedFrame(1, 1);
+    PackedAudioFrame<int> movedFrame(1, 1);
     movedFrame = move(frame);
 
     EXPECT_EQ(movedFrame.channelCount(), ChannelCount);
@@ -183,17 +183,17 @@ TEST(AudioFrameTests, moveAssignationOperator_shouldMove)
     EXPECT_EQ(frame.size(), 0);
 }
 
-TEST(AudioFrameTests, moveAssignationOperator_ownershipFalse_shouldCopy)
+TEST(PackedAudioFrameTests, moveAssignationOperator_ownershipFalse_shouldCopy)
 {
     vector<int> dataVector(ChannelCount * SampleCount);
-    AudioFrame<int> frame(ChannelCount, SampleCount, dataVector.data());
+    PackedAudioFrame<int> frame(ChannelCount, SampleCount, dataVector.data());
     for (size_t i = 0; i < FrameSize; i++)
     {
         frame[i] = i + 1;
     }
 
     int* data = frame.data();
-    AudioFrame<int> movedFrame(1, 1);
+    PackedAudioFrame<int> movedFrame(1, 1);
     movedFrame = move(frame);
 
     EXPECT_EQ(movedFrame.channelCount(), ChannelCount);

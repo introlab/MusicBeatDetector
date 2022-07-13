@@ -54,9 +54,9 @@ TEST(PcmAudioFrameTests, constructor_noCopy_shouldSetParameter)
     }
 }
 
-TEST(PcmAudioFrameTests, constructor_audioFrame_shouldConvertTheFrame)
+TEST(PcmAudioFrameTests, constructor_packedAudioFrame_shouldConvertTheFrame)
 {
-    AudioFrame<float> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<float> frame(ChannelCount, SampleCount);
 
     frame[0] = -1;
     frame[1] = 1;
@@ -276,9 +276,9 @@ TEST(PcmAudioFrameTests, moveAssignationOperator_ownershipFalse_shouldMove)
     EXPECT_EQ(frame.size(), 0);
 }
 
-TEST(PcmAudioFrameTests, assignationOperator_audioFrame_shouldCopy)
+TEST(PcmAudioFrameTests, assignationOperator_packedAudioFrame_shouldCopy)
 {
-    AudioFrame<float> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<float> frame(ChannelCount, SampleCount);
 
     frame[0] = -1;
     frame[1] = 1;
@@ -307,9 +307,9 @@ TEST(PcmAudioFrameTests, assignationOperator_audioFrame_shouldCopy)
     EXPECT_EQ(pcmFrame[5], 159);
 }
 
-TEST(PcmAudioFrameTests, assignationOperator_sameAudioFrame_shouldCopyWithoutMemoryAllocation)
+TEST(PcmAudioFrameTests, assignationOperator_samePackedAudioFrame_shouldCopyWithoutMemoryAllocation)
 {
-    AudioFrame<float> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<float> frame(ChannelCount, SampleCount);
 
     frame[0] = -1;
     frame[1] = 1;
@@ -469,7 +469,7 @@ TEST(PcmAudioFrameTests, audioFrameConversionOperator_shouldConvertTheFrame)
     frame[4] = 64;
     frame[5] = 159;
 
-    AudioFrame<float> convertedFrame(frame);
+    PackedAudioFrame<float> convertedFrame(frame);
 
     ASSERT_EQ(convertedFrame.size(), 6);
     EXPECT_TRUE(convertedFrame.hasOwnership());
@@ -483,7 +483,7 @@ TEST(PcmAudioFrameTests, audioFrameConversionOperator_shouldConvertTheFrame)
     EXPECT_NEAR(convertedFrame[5], 0.25, MaxAbsError);
 }
 
-TEST(PcmAudioFrameTests, copyTo_audioFrame_shouldCopy)
+TEST(PcmAudioFrameTests, copyTo_packedAudioFrame_shouldCopy)
 {
     constexpr float MaxAbsError = 0.1;
     PcmAudioFrame pcmFrame(PcmAudioFrameFormat::Unsigned8, ChannelCount, SampleCount);
@@ -495,7 +495,7 @@ TEST(PcmAudioFrameTests, copyTo_audioFrame_shouldCopy)
     pcmFrame[4] = 64;
     pcmFrame[5] = 159;
 
-    AudioFrame<float> frame(200, 300);
+    PackedAudioFrame<float> frame(200, 300);
     float* oldDataBuffer = frame.data();
     pcmFrame.copyTo(frame);
 
@@ -512,7 +512,7 @@ TEST(PcmAudioFrameTests, copyTo_audioFrame_shouldCopy)
     EXPECT_NEAR(frame[5], 0.25, MaxAbsError);
 }
 
-TEST(PcmAudioFrameTests, copyTo_sameAudioFrame_shouldCopy)
+TEST(PcmAudioFrameTests, copyTo_samePackedAudioFrame_shouldCopyWithoutMemoryAllocation)
 {
     constexpr float MaxAbsError = 0.1;
     PcmAudioFrame pcmFrame(PcmAudioFrameFormat::Unsigned8, ChannelCount, SampleCount);
@@ -524,7 +524,7 @@ TEST(PcmAudioFrameTests, copyTo_sameAudioFrame_shouldCopy)
     pcmFrame[4] = 64;
     pcmFrame[5] = 159;
 
-    AudioFrame<float> frame(ChannelCount, SampleCount);
+    PackedAudioFrame<float> frame(ChannelCount, SampleCount);
     float* oldDataBuffer = frame.data();
     pcmFrame.copyTo(frame);
 

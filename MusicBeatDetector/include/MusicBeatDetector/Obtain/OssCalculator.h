@@ -3,7 +3,7 @@
 
 #include <MusicBeatDetector/Utils/ClassMacro.h>
 #include <MusicBeatDetector/Utils/Data/PcmAudioFrame.h>
-#include <MusicBeatDetector/Utils/Data/AudioFrame.h>
+#include <MusicBeatDetector/Utils/Data/PackedAudioFrame.h>
 #include <MusicBeatDetector/Utils/Data/ShiftRegister.h>
 
 #include <armadillo>
@@ -22,7 +22,7 @@ namespace introlab
         ShiftRegister<float> m_fluxShiftRegister;
 
         arma::fvec m_windowedSignal;
-        AudioFrame<float> m_frame;
+        PackedAudioFrame<float> m_frame;
 
     public:
         OssCalculator(
