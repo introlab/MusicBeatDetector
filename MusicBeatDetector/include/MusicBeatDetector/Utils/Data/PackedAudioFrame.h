@@ -10,7 +10,7 @@ namespace introlab
      * A templated audio frame. The channel samples are consecutive.
      */
     template<class T>
-    class AudioFrame
+    class PackedAudioFrame
     {
         std::size_t m_channelCount;
         std::size_t m_sampleCount;
@@ -18,11 +18,11 @@ namespace introlab
         bool m_hasOwnership;
 
     public:
-        AudioFrame(std::size_t channelCount, std::size_t sampleCount);
-        AudioFrame(std::size_t channelCount, std::size_t sampleCount, T* data);
-        AudioFrame(const AudioFrame& other);
-        AudioFrame(AudioFrame&& other);
-        virtual ~AudioFrame();
+        PackedAudioFrame(std::size_t channelCount, std::size_t sampleCount);
+        PackedAudioFrame(std::size_t channelCount, std::size_t sampleCount, T* data);
+        PackedAudioFrame(const PackedAudioFrame& other);
+        PackedAudioFrame(PackedAudioFrame&& other);
+        virtual ~PackedAudioFrame();
 
         std::size_t channelCount() const;
         std::size_t sampleCount() const;
@@ -37,12 +37,12 @@ namespace introlab
         T& operator[](std::size_t i);
         const T& operator[](std::size_t i) const;
 
-        AudioFrame& operator=(const AudioFrame& other);
-        AudioFrame& operator=(AudioFrame&& other);
+        PackedAudioFrame& operator=(const PackedAudioFrame& other);
+        PackedAudioFrame& operator=(PackedAudioFrame&& other);
     };
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(std::size_t channelCount, std::size_t sampleCount)
+    inline PackedAudioFrame<T>::PackedAudioFrame(std::size_t channelCount, std::size_t sampleCount)
         : m_channelCount(channelCount),
           m_sampleCount(sampleCount),
           m_hasOwnership(true)
@@ -51,7 +51,7 @@ namespace introlab
     }
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(std::size_t channelCount, std::size_t sampleCount, T* data)
+    inline PackedAudioFrame<T>::PackedAudioFrame(std::size_t channelCount, std::size_t sampleCount, T* data)
         : m_channelCount(channelCount),
           m_sampleCount(sampleCount),
           m_data(data),
@@ -60,7 +60,7 @@ namespace introlab
     }
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(const AudioFrame<T>& other)
+    inline PackedAudioFrame<T>::PackedAudioFrame(const PackedAudioFrame<T>& other)
         : m_channelCount(other.m_channelCount),
           m_sampleCount(other.m_sampleCount),
           m_hasOwnership(true)
@@ -70,7 +70,7 @@ namespace introlab
     }
 
     template<class T>
-    inline AudioFrame<T>::AudioFrame(AudioFrame<T>&& other)
+    inline PackedAudioFrame<T>::PackedAudioFrame(PackedAudioFrame<T>&& other)
         : m_channelCount(other.m_channelCount),
           m_sampleCount(other.m_sampleCount),
           m_hasOwnership(other.m_hasOwnership)
@@ -83,7 +83,7 @@ namespace introlab
     }
 
     template<class T>
-    inline AudioFrame<T>::~AudioFrame()
+    inline PackedAudioFrame<T>::~PackedAudioFrame()
     {
         if (m_data != nullptr && m_hasOwnership)
         {
@@ -92,61 +92,61 @@ namespace introlab
     }
 
     template<class T>
-    inline std::size_t AudioFrame<T>::channelCount() const
+    inline std::size_t PackedAudioFrame<T>::channelCount() const
     {
         return m_channelCount;
     }
 
     template<class T>
-    inline std::size_t AudioFrame<T>::sampleCount() const
+    inline std::size_t PackedAudioFrame<T>::sampleCount() const
     {
         return m_sampleCount;
     }
 
     template<class T>
-    inline T* AudioFrame<T>::data()
+    inline T* PackedAudioFrame<T>::data()
     {
         return m_data;
     }
 
     template<class T>
-    inline const T* AudioFrame<T>::data() const
+    inline const T* PackedAudioFrame<T>::data() const
     {
         return m_data;
     }
 
     template<class T>
-    inline std::size_t AudioFrame<T>::size() const
+    inline std::size_t PackedAudioFrame<T>::size() const
     {
         return m_channelCount * m_sampleCount;
     }
 
     template<class T>
-    inline std::size_t AudioFrame<T>::byteSize() const
+    inline std::size_t PackedAudioFrame<T>::byteSize() const
     {
         return m_channelCount * m_sampleCount * sizeof(T);
     }
 
     template<class T>
-    inline bool AudioFrame<T>::hasOwnership() const
+    inline bool PackedAudioFrame<T>::hasOwnership() const
     {
         return m_hasOwnership;
     }
 
     template<class T>
-    inline T& AudioFrame<T>::operator[](std::size_t i)
+    inline T& PackedAudioFrame<T>::operator[](std::size_t i)
     {
         return m_data[i];
     }
 
     template<class T>
-    inline const T& AudioFrame<T>::operator[](std::size_t i) const
+    inline const T& PackedAudioFrame<T>::operator[](std::size_t i) const
     {
         return m_data[i];
     }
 
     template<class T>
-    inline AudioFrame<T>& AudioFrame<T>::operator=(const AudioFrame<T>& other)
+    inline PackedAudioFrame<T>& PackedAudioFrame<T>::operator=(const PackedAudioFrame<T>& other)
     {
         if (m_data != nullptr && m_hasOwnership)
         {
@@ -164,7 +164,7 @@ namespace introlab
     }
 
     template<class T>
-    inline AudioFrame<T>& AudioFrame<T>::operator=(AudioFrame<T>&& other)
+    inline PackedAudioFrame<T>& PackedAudioFrame<T>::operator=(PackedAudioFrame<T>&& other)
     {
         if (m_data != nullptr && m_hasOwnership)
         {

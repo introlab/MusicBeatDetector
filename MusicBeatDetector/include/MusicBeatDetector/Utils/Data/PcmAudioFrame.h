@@ -2,7 +2,7 @@
 #define MUSIC_BEAT_DETECTOR_UTILS_DATA_PCM_AUDIO_FRAME_H
 
 #include <MusicBeatDetector/Utils/Data/PcmAudioFrameFormat.h>
-#include <MusicBeatDetector/Utils/Data/AudioFrame.h>
+#include <MusicBeatDetector/Utils/Data/PackedAudioFrame.h>
 #include <MusicBeatDetector/Utils/Data/ArrayToPcmConverter.h>
 #include <MusicBeatDetector/Utils/Data/PcmToArrayConverter.h>
 
@@ -30,7 +30,7 @@ namespace introlab
         PcmAudioFrame(PcmAudioFrameFormat format, std::size_t channelCount, std::size_t sampleCount, uint8_t* data);
 
         template<class T>
-        PcmAudioFrame(const AudioFrame<T>& other, PcmAudioFrameFormat format);
+        PcmAudioFrame(const PackedAudioFrame<T>& other, PcmAudioFrameFormat format);
 
         PcmAudioFrame(const PcmAudioFrame& other);
         PcmAudioFrame(PcmAudioFrame&& other);
@@ -50,7 +50,7 @@ namespace introlab
         PcmAudioFrame& operator=(PcmAudioFrame&& other);
 
         template<class T>
-        PcmAudioFrame& operator=(const AudioFrame<T>& other);
+        PcmAudioFrame& operator=(const PackedAudioFrame<T>& other);
 
         uint8_t& operator[](std::size_t i);
         uint8_t operator[](std::size_t i) const;
@@ -60,16 +60,16 @@ namespace introlab
         void writeChannel(std::size_t thisChannelIndex, const PcmAudioFrame& other, std::size_t otherChannelIndex);
 
         template<class T>
-        operator AudioFrame<T>() const;
+        operator PackedAudioFrame<T>() const;
         template<class T>
-        void copyTo(AudioFrame<T>& other) const;
+        void copyTo(PackedAudioFrame<T>& other) const;
 
         friend std::istream& operator>>(std::istream& stream, PcmAudioFrame& frame);
         friend std::ostream& operator<<(std::ostream& stream, const PcmAudioFrame& frame);
     };
 
     template<class T>
-    PcmAudioFrame::PcmAudioFrame(const AudioFrame<T>& other, PcmAudioFrameFormat format)
+    PcmAudioFrame::PcmAudioFrame(const PackedAudioFrame<T>& other, PcmAudioFrameFormat format)
         : PcmAudioFrame(format, other.channelCount(), other.sampleCount())
     {
         ArrayToPcmConverter::convertArrayToPcm(other.data(), m_data, m_sampleCount, m_channelCount, m_format);
@@ -90,7 +90,7 @@ namespace introlab
     inline bool PcmAudioFrame::hasOwnership() const { return m_hasOwnership; }
 
     template<class T>
-    inline PcmAudioFrame& PcmAudioFrame::operator=(const AudioFrame<T>& other)
+    inline PcmAudioFrame& PcmAudioFrame::operator=(const PackedAudioFrame<T>& other)
     {
         if (m_channelCount != other.channelCount() || m_sampleCount != other.sampleCount())
         {
@@ -123,15 +123,15 @@ namespace introlab
     }
 
     template<class T>
-    inline PcmAudioFrame::operator AudioFrame<T>() const
+    inline PcmAudioFrame::operator PackedAudioFrame<T>() const
     {
-        AudioFrame<T> convertedFrame(m_channelCount, m_sampleCount);
+        PackedAudioFrame<T> convertedFrame(m_channelCount, m_sampleCount);
         PcmToArrayConverter::convertPcmToArray(m_data, convertedFrame.data(), m_sampleCount, m_channelCount, m_format);
         return convertedFrame;
     }
 
     template<class T>
-    void PcmAudioFrame::copyTo(AudioFrame<T>& other) const
+    void PcmAudioFrame::copyTo(PackedAudioFrame<T>& other) const
     {
         if (m_channelCount != other.channelCount() || m_sampleCount != other.sampleCount())
         {
