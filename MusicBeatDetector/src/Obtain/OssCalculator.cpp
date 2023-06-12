@@ -9,7 +9,8 @@ using namespace introlab;
 using namespace std;
 
 OssCalculator::OssCalculator(size_t frameSampleCount, size_t ossWindowSize, size_t fluxHammingSize)
-    : m_frameSampleCount(frameSampleCount),
+    : m_fftCalculator(ossWindowSize),
+      m_frameSampleCount(frameSampleCount),
       m_fluxShiftRegister(fluxHammingSize),
       m_frame(1, frameSampleCount)
 {
@@ -54,19 +55,18 @@ float OssCalculator::calculateFlux()
     const float Gamma = 25;
     const float Threshold = 3.7;
 
-    arma::cx_fvec complexSignal = arma::conv_to<arma::cx_fvec>::from(m_windowedSignal % m_signalHamming);
-    arma::cx_fvec complexSpectrum;
-    fft(complexSignal, complexSpectrum);
+    m_complexSignal = arma::conv_to<arma::cx_fvec>::from(m_windowedSignal % m_signalHamming);
+    m_fftCalculator.fft(m_complexSignal, m_complexSpectrum);
 
-    arma::fvec spectrum = arma::abs(complexSpectrum);
-    spectrum = arma::clamp(spectrum, Threshold, numeric_limits<float>::max());
-    spectrum -= Threshold;
-    spectrum /= arma::max(spectrum);
-    spectrum = arma::log10(1 + Gamma * spectrum);
-    spectrum /= arma::max(spectrum);
+    m_spectrum = arma::abs(m_complexSpectrum);
+    m_spectrum = arma::clamp(m_spectrum, Threshold, numeric_limits<float>::max());
+    m_spectrum -= Threshold;
+    m_spectrum /= arma::max(m_spectrum) + numeric_limits<float>::epsilon();
+    m_spectrum = arma::log10(1 + Gamma * m_spectrum);
+    m_spectrum /= arma::max(m_spectrum) + numeric_limits<float>::epsilon();
 
-    float flux = arma::sum(arma::abs(m_lastSpectrum - spectrum));
-    m_lastSpectrum = spectrum;
+    float flux = arma::sum(arma::abs(m_lastSpectrum - m_spectrum));
+    m_lastSpectrum = m_spectrum;
 
     return std::isfinite(flux) ? flux : 0;
 }

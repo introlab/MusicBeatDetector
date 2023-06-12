@@ -48,7 +48,7 @@ static void detect_shouldReturnTheBpmAndTheBeat(const string& path, PcmAudioFram
 
     float bpmMean = accumulate(bpms.begin(), bpms.end(), 0.0) / bpms.size();
 
-    EXPECT_NEAR(bpmMean, 105, 5);
+    EXPECT_NEAR(bpmMean, 109, 5);
     EXPECT_NEAR(beatCount, 17, 2);
 }
 

@@ -18,56 +18,6 @@ TEST(MathTests, hamming_shouldReturnTheHammingWindow)
     EXPECT_FLOAT_EQ(window(4), 0.08);
 }
 
-TEST(MathTests, fft_preallocatedMemory_shouldReturnTheFft)
-{
-    arma::cx_fvec x = arma::conv_to<arma::cx_fvec>::from(arma::fvec({2, 2, 2, 2}));
-    arma::cx_fvec y = arma::zeros<arma::cx_fvec>(x.n_elem);
-
-    fft(x, y);
-
-    EXPECT_EQ(y(0), complex<float>(8, 0));
-    EXPECT_EQ(y(1), complex<float>(0, 0));
-    EXPECT_EQ(y(2), complex<float>(0, 0));
-    EXPECT_EQ(y(3), complex<float>(0, 0));
-}
-
-TEST(MathTests, fft_shouldReturnTheFft)
-{
-    arma::cx_fvec x = arma::conv_to<arma::cx_fvec>::from(arma::fvec({1, 1, 1}));
-    arma::cx_fvec y;
-
-    fft(x, y);
-
-    EXPECT_EQ(y(0), complex<float>(3, 0));
-    EXPECT_EQ(y(1), complex<float>(0, 0));
-    EXPECT_EQ(y(2), complex<float>(0, 0));
-}
-
-TEST(MathTests, ifft_preallocatedMemory_shouldReturnTheIfft)
-{
-    arma::cx_fvec x({complex<float>(8, 0), complex<float>(0, 0), complex<float>(0, 0), complex<float>(0, 0)});
-    arma::cx_fvec y = arma::zeros<arma::cx_fvec>(x.n_elem);
-
-    ifft(x, y);
-
-    EXPECT_EQ(y(0), complex<float>(2, 0));
-    EXPECT_EQ(y(1), complex<float>(2, 0));
-    EXPECT_EQ(y(2), complex<float>(2, 0));
-    EXPECT_EQ(y(3), complex<float>(2, 0));
-}
-
-TEST(MathTests, ifft_shouldReturnTheIfft)
-{
-    arma::cx_fvec x({complex<float>(3, 0), complex<float>(0, 0), complex<float>(0, 0)});
-    arma::cx_fvec y;
-
-    ifft(x, y);
-
-    EXPECT_EQ(y(0), complex<float>(1, 0));
-    EXPECT_EQ(y(1), complex<float>(1, 0));
-    EXPECT_EQ(y(2), complex<float>(1, 0));
-}
-
 TEST(MathTests, fftShift_even_shouldReturnFttShift)
 {
     arma::fvec a({1, 2, 3, 4, 5, 6});

@@ -34,10 +34,10 @@ float CbssCalculator::calculatePhy(size_t beatPeriod)
 {
     constexpr float Eta = 10;
     float beatPeriodFloat = beatPeriod;
-    arma::fvec vFloat = arma::regspace<arma::fvec>(-2 * beatPeriodFloat, -beatPeriodFloat / 2);
-    arma::uvec v = arma::conv_to<arma::uvec>::from(vFloat);
+    m_vFloat = arma::regspace<arma::fvec>(-2 * beatPeriodFloat, -beatPeriodFloat / 2);
+    m_v = arma::conv_to<arma::uvec>::from(m_vFloat);
 
-    arma::fvec w = arma::exp(-Eta * arma::square(arma::log(-vFloat / beatPeriod)) / 2);
+    m_w = arma::exp(-Eta * arma::square(arma::log(-m_vFloat / beatPeriod)) / 2);
 
-    return (m_cbss.elem(m_cbss.n_elem - v - 1) % w).max();
+    return (m_cbss.elem(m_cbss.n_elem - m_v - 1) % m_w).max();
 }
