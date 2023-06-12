@@ -3,6 +3,7 @@
 
 #include <armadillo>
 #include <fftw3.h>
+
 namespace introlab
 {
     class FftCalculator
