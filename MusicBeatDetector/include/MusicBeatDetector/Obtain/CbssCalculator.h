@@ -14,6 +14,9 @@ namespace introlab
         float m_ossSamplingFrequency;
 
         arma::fvec m_cbss;
+        arma::fvec m_vFloat;
+        arma::uvec m_v;
+        arma::fvec m_w;
 
     public:
         CbssCalculator(float ossSamplingFrequency = 44100.0 / 128, float minBpm = 50);

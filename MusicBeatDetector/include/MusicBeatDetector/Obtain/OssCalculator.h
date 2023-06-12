@@ -5,6 +5,7 @@
 #include <MusicBeatDetector/Utils/Data/PcmAudioFrame.h>
 #include <MusicBeatDetector/Utils/Data/PackedAudioFrame.h>
 #include <MusicBeatDetector/Utils/Data/ShiftRegister.h>
+#include <MusicBeatDetector/Utils/Math/FftCalculator.h>
 
 #include <armadillo>
 
@@ -14,9 +15,15 @@ namespace introlab
 {
     class OssCalculator
     {
+        FftCalculator m_fftCalculator;
+
         std::size_t m_frameSampleCount;
         arma::fvec m_signalHamming;
         arma::fvec m_fluxHamming;
+
+        arma::cx_fvec m_complexSignal;
+        arma::cx_fvec m_complexSpectrum;
+        arma::fvec m_spectrum;
 
         arma::fvec m_lastSpectrum;
         ShiftRegister<float> m_fluxShiftRegister;

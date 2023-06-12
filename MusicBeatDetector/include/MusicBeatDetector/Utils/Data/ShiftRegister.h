@@ -25,7 +25,7 @@ namespace introlab
         void shift(const T& value);
         const T& operator[](int64_t i) const;
 
-        const size_t size() const;
+        const std::size_t size() const;
     };
 
     template<class T>
@@ -91,7 +91,7 @@ namespace introlab
     }
 
     template<class T>
-    inline const size_t ShiftRegister<T>::size() const
+    inline const std::size_t ShiftRegister<T>::size() const
     {
         return m_data.size();
     }
