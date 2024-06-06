@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6.4)
+cmake_minimum_required(VERSION 3.5)
 
 project(MusicBeatDetector)
 
@@ -19,12 +19,11 @@ add_library(MusicBeatDetector
         ${source_files})
 
 target_link_libraries(MusicBeatDetector
-        ${openblas_LIBRARY}
-        ${fftw_LIBRARY}
+        MusicBeatDetector_openblas
+        MusicBeatDetector_fftw
         gfortran)
 
 set_property(TARGET MusicBeatDetector PROPERTY CXX_STANDARD 14)
-add_dependencies(MusicBeatDetector fftw openblas)
 
 assign_source_group(${source_files})
 
