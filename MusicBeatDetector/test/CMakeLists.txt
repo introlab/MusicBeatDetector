@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6.4)
+cmake_minimum_required(VERSION 3.5)
 
 project(MusicBeatDetectorTests)
 
@@ -25,8 +25,8 @@ add_executable(MusicBeatDetectorTests
 
 target_link_libraries(MusicBeatDetectorTests
         MusicBeatDetector
-        ${openblas_LIBRARY}
-        ${fftw_LIBRARY}
+        MusicBeatDetector_openblas
+        MusicBeatDetector_fftw
         gtest
         gmock)
 
