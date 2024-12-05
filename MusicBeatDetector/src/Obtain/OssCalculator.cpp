@@ -74,7 +74,7 @@ float OssCalculator::calculateFlux()
 float OssCalculator::calculateOss()
 {
     float oss = 0;
-    for (int64_t i = 0; i < m_fluxShiftRegister.size(); i++)
+    for (size_t i = 0; i < m_fluxShiftRegister.size(); i++)
     {
         oss += m_fluxShiftRegister[i] * m_fluxHamming(i);
     }
