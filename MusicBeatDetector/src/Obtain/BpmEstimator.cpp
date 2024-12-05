@@ -16,8 +16,8 @@ BpmEstimator::BpmEstimator(
     float maxBpm,
     size_t candidateCount)
     : m_ossSamplingFrequency(ossSamplingFrequency),
-      m_crossCorrelationCalculator(ossWindowSize),
-      m_candidateCount(candidateCount)
+      m_candidateCount(candidateCount),
+      m_crossCorrelationCalculator(ossWindowSize)
 {
     if (minBpm <= 0 || maxBpm <= 0)
     {
